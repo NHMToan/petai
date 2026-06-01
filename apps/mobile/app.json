@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "PetAI",
+    "slug": "petai-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#131313"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.anonymous.petai-mobile",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "PetAI uses the microphone so your companion can hear and respond during voice chat."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#131313"
+      }
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

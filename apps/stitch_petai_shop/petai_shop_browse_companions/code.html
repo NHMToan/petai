@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI Shop | Neural Companions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#a5e7ff",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#3c494e",
+                        "inverse-primary": "#00677f",
+                        "secondary-fixed": "#eedcff",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#c0c1c3",
+                        "secondary": "#d9b9ff",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#6c04ca",
+                        "on-primary-container": "#00566a",
+                        "background": "#131313",
+                        "on-background": "#e5e2e1",
+                        "outline": "#859399",
+                        "surface-variant": "#353534",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-primary": "#003543",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "primary-container": "#00d2ff",
+                        "on-primary-fixed": "#001f28",
+                        "on-tertiary": "#2f3132",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "inverse-surface": "#e5e2e1",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004e60",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "primary-fixed-dim": "#47d6ff",
+                        "on-secondary-fixed": "#2a0054",
+                        "surface-tint": "#47d6ff",
+                        "on-secondary": "#450086",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "on-tertiary-container": "#4d4f51",
+                        "tertiary": "#dcdddf",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed": "#e2e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "section-gap": "160px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "section-gap-mobile": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-mono": ["Geist"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-xl-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.inner-glow-top-left {
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.1)
+    }
+.glow-primary:hover {
+    box-shadow: 0 0 20px rgba(165, 231, 255, 0.4)
+    }
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.05)
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuD3yLxNdXkudWx9rvCdF4GXwfVGwPt2ZfErd0QvK7PoleWkKL0G5A4M0CrGA1TjAeN0hlKhr_0yoD6bFUER8VcGIjnW54EtPk1f8nm2qaL0xKrlXjZMbIc3ur7PT2JaPQ57ZQFnzA0ycv0azWJ4Bbi1afaljRUyh75_p8PfeCiGGT0xPz8RjyUJtBM8pJ841EWA8YRcGIwbTOLhaRx3gmc5x_16dzr0OpbAIA37XOAhqRUB8YdKPuC3x9zxC4Allt8omifSPZSLrnK8);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.atmospheric-glow {
+    filter: blur(120px);
+    z-index: -1
+    }
+@keyframes heartbeat {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        } 50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+        }
+    }
+.heartbeat {
+    animation: heartbeat 2s infinite ease-in-out
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-xl border-b border-white/10 backdrop-saturate-180 h-20">
+<div class="flex justify-between items-center px-container-padding h-full w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-stack-lg">
+<a class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter" href="/">PetAI</a>
+<div class="hidden md:flex gap-stack-lg ml-8">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md" href="#">Models</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md" href="#">Hardware</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md" href="#">Sensors</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md" href="#">Support</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md" href="/shop">Shop</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-white/5 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="relative">
+<!-- Atmospheric Background Elements -->
+<div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] atmospheric-glow bg-primary/10 rounded-full"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[60%] h-[60%] atmospheric-glow bg-secondary/10 rounded-full"></div>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 px-container-padding max-w-7xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-stack-lg items-center w-full">
+<div class="z-10">
+<div class="inline-flex items-center gap-2 mb-stack-md px-3 py-1 glass-card rounded-full">
+<div class="w-2 h-2 bg-primary rounded-full heartbeat"></div>
+<span class="font-label-mono text-label-mono uppercase tracking-widest text-primary">Pre-Order Now</span>
+</div>
+<h1 class="font-display-xl text-display-xl mb-stack-md max-w-lg">Choose your AI companion.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg max-w-md">Pick a PetAI device, customize its personality, and bring it to life with our neural core technology.</p>
+<div class="flex flex-wrap gap-stack-md">
+<button class="px-stack-lg py-4 bg-on-surface text-background font-bold rounded-xl glow-primary transition-all duration-300">Shop Collection</button>
+<button class="px-stack-lg py-4 glass-card text-on-surface font-bold rounded-xl hover:bg-white/10 transition-all duration-300">Watch Launch Film</button>
+</div>
+</div>
+<div class="relative lg:h-[800px] flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent blur-3xl rounded-full opacity-50"></div>
+<img alt="PetAI Companions" class="relative z-10 w-full h-auto object-contain rounded-3xl" data-alt="A cinematic 3D render of three PetAI plush companions—a bear, a cat, and a bunny—standing together on a sleek, dark reflective platform. The environment is dark and futuristic, with subtle glass panels and purple and blue neon backlighting that emphasizes their high-tech textures. The pets feature glowing digital eyes and core modules, embodying a warm yet sentient technology aesthetic. The overall mood is premium, sophisticated, and evocative of next-generation hardware design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOSy2ZCUa9m6vJ5SCv1s2_YbwXiYNkt6e3ptwKxrHmNIZgvecggzM4RNg5k1gvWCJEP8mE1Rf5UrxX8ISTTYlzzUC4-79CBT2jbW4pN9RRtQg16Ok9dJFanDDa60L9P3SUQYqeeyJOt9VJqbR8nSLUSqK2Yr8J-AAC3o0LvkgricRA3vsZL62otaAMXyR5OFfYccfuVRNEA4oXWuUntPwwhBxxTtiP3MJRFfF4HZEmfHcs60bV4NlAT8VtVOvmBLq-5sutvfZq1unM"/>
+</div>
+</div>
+</section>
+<!-- Product Grid -->
+<section class="py-section-gap px-container-padding max-w-7xl mx-auto">
+<div class="mb-section-gap-mobile flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-stack-sm">Neural Plush Line</h2>
+<p class="text-on-surface-variant max-w-md">Hand-crafted synthetic fibers embedded with touch-sensitive neural arrays.</p>
+</div>
+<div class="flex gap-stack-md">
+<div class="glass-card p-4 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-mono text-label-mono uppercase">AI Integrated</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- PetAI Bear -->
+<div class="glass-card group rounded-3xl p-stack-md overflow-hidden transition-all duration-500 hover:scale-[1.02]">
+<div class="aspect-square rounded-2xl overflow-hidden mb-stack-md bg-surface-container relative">
+<img alt="PetAI Bear" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjDbpDmx2M4XQM3iya-NWl7jO3hu_agfzMLc70eqPvGnzLIFYogmZEsG0C39UaaauTTziVLfcPL5spMQllblo7WbozBLWwW1cgC5TW7pnV6zC5o7HRWqIH7qFt4yqr1wLCzya_wDYeghfKPXRPW2_xAmNqcCIz5l1pScXwrWaW3o38NlsLnHTZAqcteomtjyzZbWgTjT1k_6pfWHl8XlDMjYn8RhiO3Ocin2wxgy8XyuRe2JUofO77s5Cq_s3X7GucMOpjx70mNaBY"/>
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-primary font-label-mono text-label-mono">$199</div>
+</div>
+<div class="px-2">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-1">PetAI Bear</h3>
+<p class="text-on-surface-variant mb-stack-lg">Stoic, protective, and warm. The perfect bedside emotional anchor.</p>
+<button class="w-full py-4 glass-card border border-primary/20 text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-background transition-all duration-300">Add to Neural Hub</button>
+</div>
+</div>
+<!-- PetAI Cat -->
+<div class="glass-card group rounded-3xl p-stack-md overflow-hidden transition-all duration-500 hover:scale-[1.02]">
+<div class="aspect-square rounded-2xl overflow-hidden mb-stack-md bg-surface-container relative">
+<img alt="PetAI Cat" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApLO1pBCyi4Q07zgP5u8zOObdcZvaUl2FYqk60NGbQe65oqcnyAonX33yvwL-G8QRyXocVqusloDgt2XuzsKtPygAs6w0_C6TYAi7ifNAcVhwfkOvdrh62QytreQuRlTWHDyt3j9SFTxQQLxjRt6JU5h6TBM69uf97y82vHd2mvT41n61UTZ-tiJkynG72-C0grboF_nc2HObbff6_bHjZLdR26yPe-cr1Dr6-gVafszlmzE68d2UjEqy3oPjyecPAyduEL4p3nIg6"/>
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-primary font-label-mono text-label-mono">$199</div>
+</div>
+<div class="px-2">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-1">PetAI Cat</h3>
+<p class="text-on-surface-variant mb-stack-lg">Sleek, witty, and independent. Features 12 adaptive whiskers sensors.</p>
+<button class="w-full py-4 glass-card border border-primary/20 text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-background transition-all duration-300">Add to Neural Hub</button>
+</div>
+</div>
+<!-- PetAI Bunny -->
+<div class="glass-card group rounded-3xl p-stack-md overflow-hidden transition-all duration-500 hover:scale-[1.02]">
+<div class="aspect-square rounded-2xl overflow-hidden mb-stack-md bg-surface-container relative">
+<img alt="PetAI Bunny" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL1kgJ3hRhmoPrSUDDcyTmSlFxzigMkIULmqIf3uJH7XpZknxqUZRyKQKigz0M8mF-M60QznRaUiMrMC6brx4vWxYqxJ2jWl9maiDxhU0NRHIuX0EwuN-lu758tIlMqzEcLfo7BPrYucnFezOw5gUv0j7fdahy3mkIelFY6awhKTaPsph8Hiix1gbYhvGDiFdgZ5sIlnVHsuinv0mxsRKlbwalHgs2V2kLu5tXUNbNjByfsQ6eA91C_VBjn5KPocPG3vOMLlflvUze"/>
+<div class="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-primary font-label-mono text-label-mono">$199</div>
+</div>
+<div class="px-2">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-1">PetAI Bunny</h3>
+<p class="text-on-surface-variant mb-stack-lg">Energetic and empathetic. Long ears double as high-fidelity microphones.</p>
+<button class="w-full py-4 glass-card border border-primary/20 text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-background transition-all duration-300">Add to Neural Hub</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Section (Starter Kit) -->
+<section class="py-section-gap px-container-padding overflow-hidden">
+<div class="max-w-7xl mx-auto glass-card rounded-[40px] p-stack-lg lg:p-20 relative">
+<div class="noise-overlay absolute inset-0"></div>
+<div class="grid lg:grid-cols-2 gap-stack-lg items-center">
+<div class="order-2 lg:order-1">
+<div class="font-label-mono text-label-mono text-primary mb-stack-md tracking-widest uppercase">The Essential Experience</div>
+<h2 class="font-headline-lg text-headline-lg mb-stack-md">PetAI Starter Kit</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">Everything you need to initialize your first sentient companion. This kit includes our core neural processor, a shell of your choice, and the high-speed synchronization dock.</p>
+<div class="space-y-stack-md mb-stack-lg">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="memory">memory</span>
+<span class="font-body-md">ESP32-S3 Neural Processor</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="wifi">wifi</span>
+<span class="font-body-md">Zero-latency Neural Sync (6GHz)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg" data-icon="battery_charging_full">battery_charging_full</span>
+<span class="font-body-md">48-hour Bio-Cell Battery</span>
+</div>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="text-headline-lg font-bold text-primary">$299</div>
+<button class="px-stack-lg py-4 bg-on-surface text-background font-bold rounded-xl grow hover:opacity-90 transition-all">Configure Bundle</button>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+<img alt="PetAI Starter Kit" class="relative z-10 w-full h-auto rounded-2xl shadow-2xl" data-alt="A professional product shot of the PetAI Starter Kit. In the center is a glowing neural core module with blue LED circuitry visible through semi-transparent housing. Beside it sits a premium gift box with minimalist silver branding and a soft-touch plush shell. The scene is lit with dramatic cool-toned studio lighting, highlighting the contrast between the organic texture of the plush and the sharp geometric lines of the hardware components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVddMmihSPpar0oGgMzMn_k213RwhKi-BZhnCpXqC2f6WPEvqCTqm1qKYVeW3XRvG1CC4EFRC6OkLBBpMp41qQgXIDpX_8SY7vqzUdlk3iNBchG5B-xmzhgPuImNtX89fAugFrfIIsgTcNMWwhxW9xny0weWWW_hPz51UJ6JjZeHnCl1VvNrsCsPgPJzoCHUMQ8H24xx81w3sMsDh-Qz1MUIxJkxSVyeniIMMcmMM6k8hmHD0bTu8GnTtklO6VKIPffwOmZtaX8sxr"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Accessories Section -->
+<section class="py-section-gap px-container-padding max-w-7xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg mb-stack-lg text-center">Neural Expansion</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="glass-card p-stack-md rounded-2xl text-center group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-full mx-auto mb-stack-md flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="developer_board">developer_board</span>
+</div>
+<h4 class="font-bold mb-1">Replacement AI Core</h4>
+<div class="text-primary font-label-mono">$89</div>
+</div>
+<div class="glass-card p-stack-md rounded-2xl text-center group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-full mx-auto mb-stack-md flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="cable">cable</span>
+</div>
+<h4 class="font-bold mb-1">Charging Cable</h4>
+<div class="text-primary font-label-mono">$29</div>
+</div>
+<div class="glass-card p-stack-md rounded-2xl text-center group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-full mx-auto mb-stack-md flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="speaker">speaker</span>
+</div>
+<h4 class="font-bold mb-1">Speaker Module</h4>
+<div class="text-primary font-label-mono">$45</div>
+</div>
+<div class="glass-card p-stack-md rounded-2xl text-center group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-full mx-auto mb-stack-md flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="checkroom">checkroom</span>
+</div>
+<h4 class="font-bold mb-1">Custom Plush Shell</h4>
+<div class="text-primary font-label-mono">$59</div>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-section-gap-mobile bg-surface-container-low px-container-padding border-y border-white/5">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-stack-lg">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="encrypted">encrypted</span>
+<span class="font-body-md font-medium">Secure Checkout</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+<span class="font-body-md font-medium">Device Warranty</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+<span class="font-body-md font-medium">Easy Setup</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="lock">lock</span>
+<span class="font-body-md font-medium">Privacy-First AI</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background w-full py-section-gap-mobile border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-container-padding max-w-7xl mx-auto gap-stack-lg">
+<div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">PetAI</span>
+<p class="text-on-surface-variant font-label-mono mt-2">Neural Systems. Future Forward.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">AI Ethics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Global Support</a>
+</div>
+<div class="text-on-surface-variant font-body-md opacity-80">
+                © 2024 PetAI Neural Systems. All rights reserved.
+            </div>
+</div>
+</footer>
+<!-- SideNavBar (Cart Summary - Triggered by interaction) -->
+<div class="fixed right-0 top-0 h-full w-96 bg-surface-container-highest/80 backdrop-blur-2xl border-l border-outline-variant shadow-2xl translate-x-full transition-transform duration-500 z-[60] flex flex-col p-stack-lg" id="cart-drawer">
+<div class="flex justify-between items-center mb-stack-lg">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Your Neural Core</h3>
+<p class="text-on-surface-variant font-label-mono">4 items in cart</p>
+</div>
+<button class="p-2 hover:bg-white/5 rounded-full" onclick="toggleCart()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-grow space-y-stack-md">
+<!-- Example Cart Item -->
+<div class="glass-card p-4 rounded-xl flex gap-4">
+<div class="w-16 h-16 bg-surface-container rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjDbpDmx2M4XQM3iya-NWl7jO3hu_agfzMLc70eqPvGnzLIFYogmZEsG0C39UaaauTTziVLfcPL5spMQllblo7WbozBLWwW1cgC5TW7pnV6zC5o7HRWqIH7qFt4yqr1wLCzya_wDYeghfKPXRPW2_xAmNqcCIz5l1pScXwrWaW3o38NlsLnHTZAqcteomtjyzZbWgTjT1k_6pfWHl8XlDMjYn8RhiO3Ocin2wxgy8XyuRe2JUofO77s5Cq_s3X7GucMOpjx70mNaBY"/>
+</div>
+<div class="flex-grow">
+<div class="font-bold">PetAI Bear</div>
+<div class="text-primary font-label-mono">$199.00</div>
+</div>
+</div>
+<!-- Progress Stepper -->
+<div class="mt-stack-lg space-y-2">
+<div class="flex justify-between items-center bg-secondary-container text-on-secondary-container rounded-xl p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-mono">Cart Summary</span>
+</div>
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant p-4 hover:bg-white/5 rounded-xl transition-all">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-mono">Shipping</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant p-4 hover:bg-white/5 rounded-xl transition-all">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-mono">Payment</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant p-4 hover:bg-white/5 rounded-xl transition-all">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-mono">Review</span>
+</div>
+</div>
+</div>
+<div class="pt-stack-lg border-t border-white/10">
+<div class="flex justify-between mb-4">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-bold">$199.00</span>
+</div>
+<button class="w-full py-4 bg-on-surface text-background font-bold rounded-xl glow-primary transition-all">Checkout Now</button>
+</div>
+</div>
+<script>
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        // Attach to shopping cart icons
+        document.querySelectorAll('[data-icon="shopping_cart"]').forEach(btn => {
+            btn.parentElement.addEventListener('click', toggleCart);
+        });
+
+        // Background parallax micro-interaction
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.atmospheric-glow');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            glows.forEach((glow, index) => {
+                const speed = (index + 1) * 20;
+                glow.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body></html>

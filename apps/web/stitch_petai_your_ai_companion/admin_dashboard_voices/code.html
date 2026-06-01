@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI Admin - Voice Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden
+    }
+.glass-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA98IrgAJEl6Lz6OrT3aR-jXA4gAxI0cSApjg7DAj_Us5vttcSYgijRKtj1rI1FygLzCLT2H4BPW1Kg6uDIAa4EY8EiHB0PswJOzlid79Yfalshvz4h05miwY68tdV1m1eFZlppbtZdjdPwpudE7qJKj4DAQmfmV6rbJadM1NeA1YN38Dfqs3yR4OOzvLOuNth1tfhrtPmfo0Dl8EBAlFAszz1_4XcVy1Vj1Tnfl_jbB6NOkOUCABKbgtyL3rnaqx2WOiuXlYPPSPi9);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.inner-glow {
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.05)
+    }
+.voice-wave-active {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 16px
+    }
+.voice-wave-bar {
+    width: 2px;
+    background: #a5e7ff;
+    border-radius: 1px;
+    animation: wave 1s ease-in-out infinite
+    }
+@keyframes wave {
+    0%, 100% {
+        height: 4px;
+        } 50% {
+        height: 16px;
+        }
+    }
+.atmospheric-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(71, 214, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+    filter: blur(60px)
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#b6ebff",
+                        "on-error": "#690005",
+                        "tertiary": "#dcdddf",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary": "#450086",
+                        "surface": "#131313",
+                        "on-primary-fixed-variant": "#004e60",
+                        "tertiary-container": "#c0c1c3",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-container": "#6c04ca",
+                        "on-tertiary": "#2f3132",
+                        "surface-variant": "#353534",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2a0054",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "surface-container-highest": "#353534",
+                        "surface-tint": "#47d6ff",
+                        "secondary": "#d9b9ff",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-background": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-bright": "#3a3939",
+                        "outline-variant": "#3c494e",
+                        "primary-container": "#00d2ff",
+                        "outline": "#859399",
+                        "on-primary-fixed": "#001f28",
+                        "tertiary-fixed": "#e2e2e4",
+                        "primary": "#a5e7ff",
+                        "inverse-primary": "#00677f",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "secondary-fixed": "#eedcff",
+                        "on-primary": "#003543",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#313030",
+                        "background": "#131313",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "on-secondary-container": "#d3b0ff",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#47d6ff",
+                        "on-tertiary-container": "#4d4f51",
+                        "on-primary-container": "#00566a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "inverse-surface": "#e5e2e1"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-mono": ["Geist"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}]
+                    },
+                    "spacing": {
+                        "gutter": "24px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- Atmospheric Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+<div class="atmospheric-glow top-[-100px] left-[-100px]"></div>
+<div class="atmospheric-glow bottom-[10%] right-[-100px]" style="background: radial-gradient(circle, rgba(217, 185, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);"></div>
+</div>
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-lowest flex flex-col py-gutter z-50">
+<div class="px-6 mb-10">
+<h1 class="font-display-xl text-primary font-bold text-3xl tracking-tight">PetAI</h1>
+<p class="font-label-mono text-on-surface-variant text-[10px] uppercase tracking-[0.2em] mt-1">Admin System</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-label-mono">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-xl">router</span>
+<span class="font-label-mono">Devices</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-xl">pets</span>
+<span class="font-label-mono">Pets</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="font-label-mono">Users</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-primary bg-primary/10 border-r-2 border-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">record_voice_over</span>
+<span class="font-label-mono">Voices</span>
+</a>
+</nav>
+<div class="mt-auto px-6 space-y-1">
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors font-label-mono" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors font-label-mono" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Top AppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 h-16 border-b border-outline-variant bg-surface/80 backdrop-blur-xl flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-lg font-bold text-on-surface">Voice Management</span>
+<div class="hidden md:flex items-center bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none p-0 text-sm focus:ring-0 text-on-surface placeholder:text-on-surface-variant w-48" placeholder="Search voices..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dynamic_form</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Admin Unit</p>
+<p class="text-[10px] text-on-surface-variant font-label-mono uppercase tracking-wider">Superuser</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden border border-outline-variant">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a modern software engineer in a high-tech studio environment. The lighting is moody with subtle cyan and purple rim lights that reflect the PetAI brand palette. The person is looking directly at the camera with a calm, confident expression. The background is a blurred server room with flickering LED indicators." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMhZ5U_4QtAH2l_Uo1fv9njtXiC7N4-cbdSWL8hsDy7KTM9P8G1TrF76oAyYah2-XYlKdHs2xs-BtZ9m06XSAr1ZHiUjkiPCs1xQO4-yUedHV_OvZYe-u7qF38VIN595o2rC7cf7_RDfivaE3RCJnsAycO1sxpztcFNUGLrc2TEXx2kt1PUwY8B_zUMMRaiyUtIDXD0q-1fjknjuOtcLrTx7B5Rvt_j5jfW-YFzXYCjd1Cx-UhEW6OmndA5TdazvvbLziwn5nPyeMX"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 px-gutter pb-12">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h2 class="font-headline-lg text-4xl font-bold tracking-tight mb-2">Voice Synthesizer Engines</h2>
+<p class="text-on-surface-variant font-body-md max-w-2xl">Configure and manage AI-generated vocal profiles for pet-to-human translation layers and emotional resonance responses.</p>
+</div>
+<button class="group relative flex items-center gap-2 px-8 py-3 bg-on-surface text-surface font-bold rounded-full hover:shadow-[0_0_20px_rgba(165,231,255,0.3)] transition-all duration-300">
+<span class="material-symbols-outlined text-xl">add</span>
+                Create Voice
+                <div class="absolute inset-0 rounded-full border border-white/20 scale-105 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+</div>
+<!-- Stats Overview (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="glass-card p-6 rounded-2xl inner-glow">
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase tracking-widest mb-2">Total Engines</p>
+<p class="text-3xl font-bold text-primary">24</p>
+<div class="mt-4 flex items-center text-xs text-primary/60">
+<span class="material-symbols-outlined text-xs mr-1">trending_up</span>
+                    +3 new this month
+                </div>
+</div>
+<div class="glass-card p-6 rounded-2xl inner-glow">
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase tracking-widest mb-2">Active Profiles</p>
+<p class="text-3xl font-bold text-on-surface">18</p>
+<div class="mt-4 flex items-center text-xs text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mr-2"></span>
+                    Operational
+                </div>
+</div>
+<div class="glass-card p-6 rounded-2xl inner-glow">
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase tracking-widest mb-2">Syntheses / Hr</p>
+<p class="text-3xl font-bold text-on-surface">12.4k</p>
+<div class="mt-4 flex items-center text-xs text-primary/60">
+<span class="material-symbols-outlined text-xs mr-1">bolt</span>
+                    Peak Load
+                </div>
+</div>
+<div class="glass-card p-6 rounded-2xl inner-glow bg-primary/5">
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase tracking-widest mb-2">System Status</p>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-lg font-bold text-on-surface">Nominal</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-3 uppercase tracking-tighter">Latency: 142ms</p>
+</div>
+</div>
+<!-- Table Container -->
+<div class="glass-card rounded-3xl inner-glow overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low/50">
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Code</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Name</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Provider</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Voice ID</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Lang</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Gender</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Sample</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant">Active</th>
+<th class="px-6 py-4 font-label-mono text-[11px] uppercase tracking-widest text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5 font-label-mono text-sm text-primary">EN-AUR-01</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-lg">graphic_eq</span>
+</div>
+<span class="font-bold text-on-surface">Aura Whisper</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-xs font-medium border border-outline-variant">ElevenLabs</span>
+</td>
+<td class="px-6 py-5 font-label-mono text-xs text-on-surface-variant">EXoc45L1...</td>
+<td class="px-6 py-5 text-sm">EN-US</td>
+<td class="px-6 py-5 text-sm">Female</td>
+<td class="px-6 py-5">
+<div class="voice-wave-active" onclick="toggleWave(this)">
+<div class="voice-wave-bar" style="animation-delay: 0.1s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.3s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.2s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.4s"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#a5e7ff]"></div>
+<span class="text-[10px] font-label-mono uppercase">Online</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5 font-label-mono text-sm text-primary">ES-MAT-04</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-lg">graphic_eq</span>
+</div>
+<span class="font-bold text-on-surface">Mateo Warmth</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-xs font-medium border border-outline-variant">OpenAI</span>
+</td>
+<td class="px-6 py-5 font-label-mono text-xs text-on-surface-variant">alloy-v2</td>
+<td class="px-6 py-5 text-sm">ES-ES</td>
+<td class="px-6 py-5 text-sm">Male</td>
+<td class="px-6 py-5">
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#a5e7ff]"></div>
+<span class="text-[10px] font-label-mono uppercase">Online</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5 font-label-mono text-sm text-primary">JP-SAK-09</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-lg">graphic_eq</span>
+</div>
+<span class="font-bold text-on-surface">Sakura Gentle</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-xs font-medium border border-outline-variant">Azure</span>
+</td>
+<td class="px-6 py-5 font-label-mono text-xs text-on-surface-variant">ja-JP-Sakura</td>
+<td class="px-6 py-5 text-sm">JA-JP</td>
+<td class="px-6 py-5 text-sm">Female</td>
+<td class="px-6 py-5">
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant/30"></div>
+<span class="text-[10px] font-label-mono uppercase text-on-surface-variant">Disabled</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-primary">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-6 py-5 font-label-mono text-sm text-primary">DE-LUK-12</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-lg">graphic_eq</span>
+</div>
+<span class="font-bold text-on-surface">Lukas Bold</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-xs font-medium border border-outline-variant">OpenAI</span>
+</td>
+<td class="px-6 py-5 font-label-mono text-xs text-on-surface-variant">shimmer-v1</td>
+<td class="px-6 py-5 text-sm">DE-DE</td>
+<td class="px-6 py-5 text-sm">Male</td>
+<td class="px-6 py-5">
+<div class="voice-wave-active">
+<div class="voice-wave-bar" style="animation-delay: 0.2s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.1s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.5s"></div>
+<div class="voice-wave-bar" style="animation-delay: 0.3s"></div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#a5e7ff]"></div>
+<span class="text-[10px] font-label-mono uppercase">Online</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined text-lg">block</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-outline-variant/30">
+<p class="text-xs text-on-surface-variant font-label-mono uppercase tracking-wider">Showing 1-10 of 24 voices</p>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded-lg border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-3 py-1 rounded-lg border border-primary text-primary font-label-mono text-xs bg-primary/10">1</button>
+<button class="px-3 py-1 rounded-lg border border-outline-variant text-on-surface-variant font-label-mono text-xs hover:border-primary hover:text-primary transition-all">2</button>
+<button class="px-3 py-1 rounded-lg border border-outline-variant text-on-surface-variant font-label-mono text-xs hover:border-primary hover:text-primary transition-all">3</button>
+<button class="p-1 rounded-lg border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction: Play voice visualizer on click
+        function toggleWave(container) {
+            const bars = container.querySelectorAll('.voice-wave-bar');
+            bars.forEach(bar => {
+                if (bar.style.animationPlayState === 'paused') {
+                    bar.style.animationPlayState = 'running';
+                } else {
+                    bar.style.animationPlayState = 'paused';
+                }
+            });
+        }
+
+        // Initialize atmospheric effects
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.atmospheric-glow');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            glows.forEach((glow, index) => {
+                const moveX = (x - 0.5) * (index + 1) * 20;
+                const moveY = (y - 0.5) * (index + 1) * 20;
+                glow.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+</body></html>

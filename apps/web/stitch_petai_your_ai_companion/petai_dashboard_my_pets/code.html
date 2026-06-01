@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI - My Pets</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#353534",
+                        "secondary": "#d9b9ff",
+                        "outline": "#859399",
+                        "on-primary-fixed-variant": "#004e60",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "secondary-fixed": "#eedcff",
+                        "on-primary": "#003543",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#b6ebff",
+                        "error-container": "#93000a",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#2f3132",
+                        "on-primary-container": "#00566a",
+                        "inverse-primary": "#00677f",
+                        "tertiary-container": "#c0c1c3",
+                        "surface-tint": "#47d6ff",
+                        "on-secondary": "#450086",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#bbc9cf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary": "#a5e7ff",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "tertiary": "#dcdddf",
+                        "surface": "#131313",
+                        "tertiary-fixed": "#e2e2e4",
+                        "on-secondary-fixed": "#2a0054",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1c1b1b",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#3c494e",
+                        "on-primary-fixed": "#001f28",
+                        "on-secondary-container": "#d3b0ff",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "primary-fixed-dim": "#47d6ff",
+                        "primary-container": "#00d2ff",
+                        "secondary-container": "#6c04ca",
+                        "background": "#131313",
+                        "on-tertiary-container": "#4d4f51",
+                        "surface-bright": "#3a3939"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "section-gap-mobile": "80px",
+                        "container-padding": "24px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "section-gap": "160px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-mono": ["Geist"],
+                        "display-xl-mobile": ["Inter"],
+                        "display-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(165, 231, 255, 0.3);
+            transform: translateY(-4px);
+        }
+        .atmospheric-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.08) 0%, rgba(0, 210, 255, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .heartbeat-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #47d6ff;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(71, 214, 255, 0.7); }
+            70% { transform: scale(1.5); opacity: 0; box-shadow: 0 0 0 10px rgba(71, 214, 255, 0); }
+            100% { transform: scale(1); opacity: 0; box-shadow: 0 0 0 0 rgba(71, 214, 255, 0); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- Atmospheric Background Layers -->
+<div class="atmospheric-glow" style="top: -100px; right: -50px;"></div>
+<div class="atmospheric-glow" style="bottom: 10%; left: -100px; background: radial-gradient(circle, rgba(217, 185, 255, 0.05) 0%, rgba(217, 185, 255, 0) 70%);"></div>
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 backdrop-blur-xl bg-surface/30 border-r border-outline-variant shadow-xl flex flex-col py-stack-lg z-50">
+<div class="px-6 mb-12">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tighter">PetAI</h1>
+<p class="text-on-surface-variant font-label-mono text-[10px] tracking-widest uppercase opacity-70">Sentient Connection</p>
+</div>
+<nav class="flex-1 space-y-2 px-3">
+<!-- Overview -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-200 text-on-surface-variant font-medium hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="font-body-md text-body-md">Overview</span>
+</a>
+<!-- My Pets (Active) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 text-primary font-bold border-r-2 border-primary bg-primary-container/10 active:scale-95" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-body-md text-body-md">My Pets</span>
+</a>
+<!-- Claim Device -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-200 text-on-surface-variant font-medium hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined text-[24px]">add_to_home_screen</span>
+<span class="font-body-md text-body-md">Claim Device</span>
+</a>
+<!-- Voice Settings -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-200 text-on-surface-variant font-medium hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined text-[24px]">settings_voice</span>
+<span class="font-body-md text-body-md">Voice Settings</span>
+</a>
+<!-- Account -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors duration-200 text-on-surface-variant font-medium hover:bg-surface-container-high group" href="#">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+<span class="font-body-md text-body-md">Account</span>
+</a>
+</nav>
+<div class="mt-auto px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 border border-secondary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm">bolt</span>
+</div>
+<div>
+<p class="text-on-surface font-bold text-sm">System v2.4</p>
+<p class="text-on-surface-variant text-[10px]">Optimized Core</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar Integration -->
+<header class="flex justify-between items-center px-container-padding h-16 w-full sticky top-0 z-40 backdrop-blur-md bg-surface/10 border-b border-outline-variant/20">
+<div class="flex items-center gap-6">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">PetAI Dashboard</h2>
+<!-- Search Bar Placeholder -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+<input class="bg-black/40 border border-outline-variant/30 rounded-full pl-10 pr-4 py-1.5 w-64 text-sm focus:border-primary focus:ring-0 transition-all text-on-surface" placeholder="Search systems..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all active:opacity-80">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all active:opacity-80">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNq0_eDnzfwS0E6h_PRdZMrqu1FErQy6FJVmvl3BGBZj8oc96otqF85iXkVukrM74GmY_68HfmaBj5wb9MUlHX7TpMemyyldpJBax4bWJXF7_i4oVhbTp-nkCX_ZYg9HThe652kzMe-l9otMA4NgTi5F7n0KKIXT5dD7giIsd-NHWl2VYwlCGUxnMGHbpcFA7COcCikzjCX3J_wmgHT5k39420pgj2HknaHSC4x3dmc9M361hXk7vK_mO5BFavKJkWGXNxviKvU9oZ"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-container-padding max-w-[1200px]">
+<!-- Breadcrumbs / Header -->
+<div class="mb-12">
+<div class="flex items-center gap-2 text-on-surface-variant font-label-mono text-[10px] uppercase tracking-widest mb-2">
+<span>Ecosystem</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary">Companion Nodes</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg font-bold text-on-surface">My Sentient Pets</h3>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl mt-4">
+                    Monitor and interact with your digital-physical hybrid companions. Each PetAI instance is encrypted and synced with your neural profile.
+                </p>
+</div>
+<!-- Bento Grid of Pet Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Pet Card 1: Luna -->
+<div class="glass-card rounded-[32px] p-8 flex flex-col group">
+<div class="flex justify-between items-start mb-6">
+<div class="w-24 h-24 rounded-2xl overflow-hidden border border-outline-variant/30 relative">
+<img alt="Luna avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uglhcWTNaTW1G654_rUvQyiJMpv34YiJP59gPSDws8D_swAfLrKR0OqYtapma8s0_7z0K_iR7_hIPrjhDaOs_fBk-S0t_hl8Gy2-0IgUguKzMe6QlmZyR3iEAhsK7p5XynrC4w4cFrWE01i8-Em_TgmjhhlAytC9GHvIHkjg-UsYZUceHKNVdSWd21NkL12U4zeRRNqh-UGO9lhWKXa8DlC35aMmNbRh4Qn2tIOxGbR9lEnivU9DcEaq77l"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+</div>
+<div class="flex flex-col items-end">
+<div class="bg-primary/10 border border-primary/20 rounded-full px-3 py-1 flex items-center gap-2 mb-2">
+<div class="heartbeat-dot"></div>
+<span class="font-label-mono text-[10px] text-primary uppercase">Active</span>
+</div>
+<span class="text-on-surface-variant font-label-mono text-[10px]">SYNCED: 99.8%</span>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface mb-1">Luna</h4>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-base">female</span>
+<span class="text-on-surface-variant font-body-md text-sm">Female</span>
+</div>
+<div class="w-px h-3 bg-outline-variant/40"></div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">record_voice_over</span>
+<span class="text-on-surface-variant font-body-md text-sm">Voice: Nova</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<button class="w-full py-4 bg-on-surface text-surface font-bold rounded-2xl hover:shadow-[0_0_20px_rgba(165,231,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            Manage Pet
+                            <span class="material-symbols-outlined text-lg">settings</span>
+</button>
+</div>
+</div>
+<!-- Pet Card 2: Orion (Secondary Sample) -->
+<div class="glass-card rounded-[32px] p-8 flex flex-col group">
+<div class="flex justify-between items-start mb-6">
+<div class="w-24 h-24 rounded-2xl overflow-hidden border border-outline-variant/30 relative">
+<img class="w-full h-full object-cover" data-alt="A futuristic digital cat portrait with sleek metallic-fur texture and glowing neon cyan eyes. The background is a minimalist, dark tech-noir setting with subtle blue atmospheric haze and floating data particles, matching a premium cybernetic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5fNfq1fs0wNnuNYsZltSsybLe1c-ZnSBOtwRndlwVAl2AiH0AucEayBeH2IBtOJ_2DqrNM6lY_4t-k6kMugU4I7rIcwaRSGXX44oRJ1GXzoKfh4PNCkFDQ79GJi6xN_TU9zp31RN_81xjPltjfCnj8kkqkwaekNC3KJIJetIXIQWIUFtdAVXoeRfFD0AWkPbcPx9rP9MqutqV-T-6e8xL-62BUgf8a46-71hRZbm87j1_cgs0oKuQZsVDVwgjUbUxyuCw2ryfAaMV"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+</div>
+<div class="flex flex-col items-end">
+<div class="bg-surface-container-high border border-outline-variant/30 rounded-full px-3 py-1 flex items-center gap-2 mb-2">
+<div class="w-1 h-1 rounded-full bg-on-surface-variant"></div>
+<span class="font-label-mono text-[10px] text-on-surface-variant uppercase">Standby</span>
+</div>
+<span class="text-on-surface-variant font-label-mono text-[10px]">SYNCED: 100%</span>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface mb-1">Orion</h4>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base">male</span>
+<span class="text-on-surface-variant font-body-md text-sm">Male</span>
+</div>
+<div class="w-px h-3 bg-outline-variant/40"></div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-base">record_voice_over</span>
+<span class="text-on-surface-variant font-body-md text-sm">Voice: Echo</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<button class="w-full py-4 bg-on-surface text-surface font-bold rounded-2xl hover:shadow-[0_0_20px_rgba(165,231,255,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                            Manage Pet
+                            <span class="material-symbols-outlined text-lg">settings</span>
+</button>
+</div>
+</div>
+<!-- Add New Device Placeholder -->
+<div class="rounded-[32px] p-8 border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-all group min-h-[360px]">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary transition-colors">add</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface mb-2">Claim New Device</h4>
+<p class="text-on-surface-variant font-body-md text-sm max-w-[200px]">
+                        Scan the QR code on your PetAI hardware to begin the synchronization process.
+                    </p>
+</div>
+</div>
+<!-- Dashboard Stats Section -->
+<div class="mt-section-gap grid grid-cols-1 lg:grid-cols-4 gap-gutter">
+<div class="glass-card rounded-3xl p-6 col-span-1 lg:col-span-2">
+<div class="flex items-center justify-between mb-8">
+<h5 class="text-on-surface font-bold">Neural Harmony Status</h5>
+<span class="material-symbols-outlined text-primary">insights</span>
+</div>
+<div class="flex items-end gap-1 h-32 mb-4">
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[40%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[65%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[50%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[85%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[70%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[95%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm hover:bg-primary/40 transition-all h-[80%]"></div>
+</div>
+<p class="text-on-surface-variant font-label-mono text-[11px] uppercase">Connection Stability: Excellent (98ms latency)</p>
+</div>
+<div class="glass-card rounded-3xl p-6">
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase mb-1">Total Interaction</p>
+<h5 class="text-3xl font-bold text-primary mb-4">412 hrs</h5>
+<div class="w-full bg-surface-container rounded-full h-1">
+<div class="bg-secondary w-3/4 h-1 rounded-full"></div>
+</div>
+<p class="text-on-surface-variant text-[11px] mt-4">Level 14 Sentience Bridge reached</p>
+</div>
+<div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+<div>
+<p class="text-on-surface-variant font-label-mono text-[10px] uppercase mb-1">Active Sensors</p>
+<h5 class="text-3xl font-bold text-on-surface">12/12</h5>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border border-surface bg-primary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">videocam</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-surface bg-secondary/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">mic</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-surface bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">thermostat</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Subtle tilt effect
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 25;
+                const rotateY = (centerX - x) / 25;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    </script>
+</body></html>

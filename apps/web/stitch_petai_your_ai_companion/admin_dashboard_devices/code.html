@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#b6ebff",
+                    "on-error": "#690005",
+                    "tertiary": "#dcdddf",
+                    "on-surface": "#e5e2e1",
+                    "on-secondary": "#450086",
+                    "surface": "#131313",
+                    "on-primary-fixed-variant": "#004e60",
+                    "tertiary-container": "#c0c1c3",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-container": "#6c04ca",
+                    "on-tertiary": "#2f3132",
+                    "surface-variant": "#353534",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#2a0054",
+                    "secondary-fixed-dim": "#d9b9ff",
+                    "surface-container-highest": "#353534",
+                    "surface-tint": "#47d6ff",
+                    "secondary": "#d9b9ff",
+                    "on-surface-variant": "#bbc9cf",
+                    "on-background": "#e5e2e1",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-bright": "#3a3939",
+                    "outline-variant": "#3c494e",
+                    "primary-container": "#00d2ff",
+                    "outline": "#859399",
+                    "on-primary-fixed": "#001f28",
+                    "tertiary-fixed": "#e2e2e4",
+                    "primary": "#a5e7ff",
+                    "inverse-primary": "#00677f",
+                    "on-secondary-fixed-variant": "#6300bb",
+                    "secondary-fixed": "#eedcff",
+                    "on-primary": "#003543",
+                    "surface-dim": "#131313",
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#313030",
+                    "background": "#131313",
+                    "tertiary-fixed-dim": "#c6c6c8",
+                    "on-secondary-container": "#d3b0ff",
+                    "on-tertiary-fixed": "#1a1c1d",
+                    "surface-container": "#201f1f",
+                    "primary-fixed-dim": "#47d6ff",
+                    "on-tertiary-container": "#4d4f51",
+                    "on-primary-container": "#00566a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#454749",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap-mobile": "80px",
+                    "section-gap": "160px",
+                    "container-padding": "24px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "display-xl": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-xl-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-mono": ["Geist"]
+            },
+            "fontSize": {
+                    "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>body {
+    background-color: #0e0e0e;
+    color: #e5e2e1;
+    -webkit-font-smoothing: antialiased
+    }
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05)
+    }
+.noise-overlay {
+    position: relative
+    }
+.noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBpWBStOVonRm-vvx1C958HXdYBp55GrgdCLx3jKRvap_t-4wyEroqUQfIO2AxkMZ0iTVnPKcujklpetRtgfBsGHBKRE3_knhYmHbW37ZHXlaORx8XPunAEGm0YchG86gVDWldF39CLYlFt6ibpbf2A9OoaJLA2zm4gnQ_HQqJ-lqdaI2aE4FlUKk2Xwc0r3_PLIgQy5xBbwavzd9xii-Ml7yRzY4hnSVXdJVLOCh6mO-wms_RhacxWO3GCFR67BeUVUI4Tbk7TlONl);
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 1
+    }
+.atmospheric-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(71, 214, 255, 0.1) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(40px)
+    }
+.scrollbar-hide::-webkit-scrollbar {
+    display: none
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Atmospheric Glows -->
+<div class="atmospheric-glow top-0 right-0 translate-x-1/2 -translate-y-1/2"></div>
+<div class="atmospheric-glow bottom-0 left-0 -translate-x-1/2 translate-y-1/2" style="background: radial-gradient(circle, rgba(217, 185, 255, 0.05) 0%, transparent 70%);"></div>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-lowest flex flex-col py-gutter z-50">
+<div class="px-6 mb-10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">pets</span>
+<div class="flex flex-col">
+<span class="font-display-xl-mobile text-display-xl-mobile font-bold text-primary leading-none">PetAI</span>
+<span class="font-label-mono text-label-mono text-outline uppercase tracking-widest mt-1">Admin System</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-mono text-label-mono">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary duration-200" href="#">
+<span class="material-symbols-outlined">router</span>
+<span class="font-label-mono text-label-mono font-bold">Devices</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-mono text-label-mono">Pets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-mono text-label-mono">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-mono text-label-mono">Voices</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-6 border-t border-outline-variant/30">
+<div class="bg-primary/5 rounded-xl p-4 mb-6 border border-primary/10">
+<p class="font-label-mono text-label-mono text-primary mb-2">QUICK STATS</p>
+<div class="flex justify-between items-end">
+<span class="text-on-surface-variant text-xs">Active Systems</span>
+<span class="font-bold text-lg">1,204</span>
+</div>
+</div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors mb-2" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-mono text-label-mono">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-mono text-label-mono">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant shadow-sm flex justify-between items-center h-16 px-gutter ml-64 duration-300 backdrop-saturate-150">
+<div class="flex items-center gap-6 flex-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface whitespace-nowrap">Device Inventory</h1>
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Search by Serial or MAC..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">dynamic_form</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden xl:block">
+<p class="font-bold text-sm text-on-surface">Admin Root</p>
+<p class="text-[10px] text-outline uppercase tracking-tighter">Superuser Access</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 group-hover:border-primary transition-colors overflow-hidden">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A futuristic geometric avatar representing a digital administrator. The style is abstract and minimalist, using clean lines and a high-tech obsidian and neon blue color palette consistent with a sentient AI system interface. Soft glowing highlights add depth and sophistication." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2aPa0qS9SpqnQRL6B3UKI9Y2jUkEJlNsuuYl_Kj8GsdZiCQrBN2X3T_r9WCBWN4YZz-smy6AXbatNIXE-kCEkLn9cH3D1zS7usQUDZgOY9sQH-IhD6IdrzS4FLK99uFKv1tXqqkkW5k_4Ts_PfQEDTgsqdf7AkCWQ-GR6AWcKbXL5ITW101eHfhlG6Pd9Lcz3fDAhxFfDJDwjqXxSOqwaAdYaYljX2bxekqwQNlj7d-7dEK7Jqe8fN3v6OBFEeQbAnh7X3XrzR7Q7"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen px-gutter pb-section-gap overflow-y-auto">
+<!-- Action Bar Section -->
+<section class="mt-stack-lg mb-stack-md flex flex-wrap justify-between items-end gap-6">
+<div class="flex gap-4">
+<button class="bg-on-surface text-surface px-6 py-2.5 rounded-full font-bold flex items-center gap-2 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all active:scale-95">
+<span class="material-symbols-outlined text-xl">add</span>
+                    Create Device
+                </button>
+<button class="bg-surface-container-high text-on-surface px-6 py-2.5 rounded-full font-medium flex items-center gap-2 border border-outline-variant/30 hover:bg-surface-variant transition-all active:scale-95">
+<span class="material-symbols-outlined text-xl">upload_file</span>
+                    Bulk Create
+                </button>
+</div>
+<!-- Filters -->
+<div class="flex gap-4 items-center">
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-[10px] text-outline px-1 uppercase">Filter Status</label>
+<select class="bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-primary outline-none appearance-none cursor-pointer">
+<option>All Statuses</option>
+<option>Available</option>
+<option>Claimed</option>
+<option>Blocked</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-[10px] text-outline px-1 uppercase">Firmware</label>
+<select class="bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-primary outline-none appearance-none cursor-pointer">
+<option>Any Version</option>
+<option>v2.4.1</option>
+<option>v2.4.0</option>
+<option>v2.3.9</option>
+</select>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors mt-5">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Table Card -->
+<div class="glass-panel noise-overlay rounded-2xl overflow-hidden mt-6">
+<div class="overflow-x-auto scrollbar-hide">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-highest/50 border-b border-outline-variant/50">
+<tr>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Product Code</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Serial Number</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">MAC Address</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Firmware</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Status</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Claimed By</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Claimed At</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest whitespace-nowrap">Created At</th>
+<th class="px-6 py-5 font-label-mono text-label-mono text-outline uppercase tracking-widest text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-mono text-primary font-bold">PETAI-001</td>
+<td class="px-6 py-4 text-on-surface/80">SN-9923-XK20</td>
+<td class="px-6 py-4 text-on-surface/80 font-label-mono text-[13px]">A1:B2:C3:D4:E5:F6</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs border border-outline-variant/50">v2.4.1</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                    Available
+                                </span>
+</td>
+<td class="px-6 py-4 text-outline text-sm italic">—</td>
+<td class="px-6 py-4 text-outline text-sm">—</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-11-20 14:30</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:text-error transition-colors" title="Block"><span class="material-symbols-outlined text-lg">block</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-mono text-primary font-bold">PETAI-001</td>
+<td class="px-6 py-4 text-on-surface/80">SN-4412-ZY11</td>
+<td class="px-6 py-4 text-on-surface/80 font-label-mono text-[13px]">F1:E2:D3:C4:B5:A6</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs border border-outline-variant/50">v2.4.1</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Claimed
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm">
+<a class="text-primary hover:underline flex items-center gap-1" href="#">
+                                    j.smith@email.com
+                                    <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</a>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-12-01 09:15</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-11-18 11:20</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:text-error transition-colors" title="Block"><span class="material-symbols-outlined text-lg">block</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-mono text-primary font-bold">PETAI-002</td>
+<td class="px-6 py-4 text-on-surface/80">SN-0034-ML90</td>
+<td class="px-6 py-4 text-on-surface/80 font-label-mono text-[13px]">11:22:33:44:55:66</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs border border-outline-variant/50 text-warning-400">v2.3.9</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error/10 text-error text-xs font-medium border border-error/20">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                    Blocked
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm">
+<a class="text-primary hover:underline flex items-center gap-1" href="#">
+                                    security@corp.io
+                                    <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</a>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-12-05 16:45</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-10-15 08:00</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 text-error" title="Blocked State"><span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">lock</span></button>
+</div>
+</td>
+</tr>
+<!-- Repeat rows for density -->
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-mono text-primary font-bold">PETAI-001</td>
+<td class="px-6 py-4 text-on-surface/80">SN-8822-VV10</td>
+<td class="px-6 py-4 text-on-surface/80 font-label-mono text-[13px]">BC:45:DE:12:89:FA</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs border border-outline-variant/50">v2.4.0</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-medium border border-green-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                    Available
+                                </span>
+</td>
+<td class="px-6 py-4 text-outline text-sm italic">—</td>
+<td class="px-6 py-4 text-outline text-sm">—</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-11-22 10:05</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:text-error transition-colors" title="Block"><span class="material-symbols-outlined text-lg">block</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-mono text-primary font-bold">PETAI-003</td>
+<td class="px-6 py-4 text-on-surface/80">SN-1029-HH44</td>
+<td class="px-6 py-4 text-on-surface/80 font-label-mono text-[13px]">55:CC:77:AA:99:BB</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-xs border border-outline-variant/50">v2.4.1</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    Claimed
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm">
+<a class="text-primary hover:underline flex items-center gap-1" href="#">
+                                    m.jones@gmail.com
+                                    <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</a>
+</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-12-08 14:50</td>
+<td class="px-6 py-4 text-sm text-on-surface/60">2023-11-30 18:22</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:text-error transition-colors" title="Block"><span class="material-symbols-outlined text-lg">block</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 border-t border-outline-variant/30 flex justify-between items-center bg-surface-container-highest/20">
+<span class="text-sm text-outline">Showing 1–5 of 1,204 devices</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 text-sm rounded-lg border border-outline-variant hover:bg-surface-variant disabled:opacity-50 transition-all" disabled="">Previous</button>
+<button class="px-4 py-1.5 text-sm rounded-lg border border-outline-variant bg-primary/10 text-primary border-primary/30">1</button>
+<button class="px-4 py-1.5 text-sm rounded-lg border border-outline-variant hover:bg-surface-variant">2</button>
+<button class="px-4 py-1.5 text-sm rounded-lg border border-outline-variant hover:bg-surface-variant">3</button>
+<button class="px-4 py-1.5 text-sm rounded-lg border border-outline-variant hover:bg-surface-variant">Next</button>
+</div>
+</div>
+</div>
+<!-- System Logs Section (Asymmetric / Bento Style) -->
+<section class="mt-section-gap-mobile grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 glass-panel noise-overlay rounded-2xl p-8">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile font-bold">Hardware Lifecycle</h3>
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20">LIVE TELEMETRY</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 p-4 rounded-xl bg-surface-container-high/40 border border-outline-variant/20 items-center">
+<div class="w-2 h-10 bg-green-500 rounded-full"></div>
+<div class="flex-1">
+<p class="font-bold text-sm">New Batch Provisioned</p>
+<p class="text-outline text-xs">500 new units of PETAI-001 added to inventory successfully.</p>
+</div>
+<span class="text-xs text-outline font-label-mono">14:32:01</span>
+</div>
+<div class="flex gap-4 p-4 rounded-xl bg-surface-container-high/40 border border-outline-variant/20 items-center">
+<div class="w-2 h-10 bg-primary rounded-full"></div>
+<div class="flex-1">
+<p class="font-bold text-sm">Mass OTA Update</p>
+<p class="text-outline text-xs">Pushing firmware v2.4.1 to 12 active devices in Zone 7.</p>
+</div>
+<span class="text-xs text-outline font-label-mono">12:05:44</span>
+</div>
+<div class="flex gap-4 p-4 rounded-xl bg-surface-container-high/40 border border-outline-variant/20 items-center">
+<div class="w-2 h-10 bg-error rounded-full"></div>
+<div class="flex-1">
+<p class="font-bold text-sm">Security Block Triggered</p>
+<p class="text-outline text-xs">Device SN-0034-ML90 blocked due to unauthorized MAC spoofing attempt.</p>
+</div>
+<span class="text-xs text-outline font-label-mono">09:12:15</span>
+</div>
+</div>
+</div>
+<div class="glass-panel noise-overlay rounded-2xl p-8 flex flex-col justify-between">
+<div>
+<h3 class="text-lg font-bold mb-2">Inventory Health</h3>
+<p class="text-sm text-outline mb-6">Real-time status distribution of the global PetAI device fleet.</p>
+<div class="relative h-48 w-full flex items-end justify-around gap-2 px-2">
+<div class="w-8 bg-primary rounded-t-lg transition-all hover:scale-110 cursor-help" style="height: 80%" title="Claimed: 963"></div>
+<div class="w-8 bg-green-500 rounded-t-lg transition-all hover:scale-110 cursor-help" style="height: 40%" title="Available: 480"></div>
+<div class="w-8 bg-error rounded-t-lg transition-all hover:scale-110 cursor-help" style="height: 15%" title="Blocked: 161"></div>
+<div class="w-8 bg-outline-variant rounded-t-lg transition-all hover:scale-110 cursor-help" style="height: 10%" title="In Repair: 12"></div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/30 flex justify-around">
+<div class="text-center">
+<p class="text-2xl font-bold text-primary">82%</p>
+<p class="text-[10px] text-outline uppercase font-label-mono">Utilization</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-on-surface">1,616</p>
+<p class="text-[10px] text-outline uppercase font-label-mono">Total Units</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Micro-interactions for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (e.target.closest('button')) return;
+                console.log('Row clicked: ' + row.querySelector('td:nth-child(2)').innerText);
+                // Highlight logic or navigation could go here
+            });
+        });
+
+        // Atmospheric mouse glow effect
+        const canvas = document.querySelector('main');
+        document.addEventListener('mousemove', (e) => {
+            // Future implementation: Add a dynamic glow following the cursor
+        });
+    </script>
+</body></html>

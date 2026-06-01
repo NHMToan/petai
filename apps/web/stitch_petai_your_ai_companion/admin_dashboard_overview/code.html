@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0e0e0e;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent);
+        }
+        .atmospheric-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(71, 214, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#b6ebff",
+                      "on-error": "#690005",
+                      "tertiary": "#dcdddf",
+                      "on-surface": "#e5e2e1",
+                      "on-secondary": "#450086",
+                      "surface": "#131313",
+                      "on-primary-fixed-variant": "#004e60",
+                      "tertiary-container": "#c0c1c3",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-container": "#6c04ca",
+                      "on-tertiary": "#2f3132",
+                      "surface-variant": "#353534",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2a0054",
+                      "secondary-fixed-dim": "#d9b9ff",
+                      "surface-container-highest": "#353534",
+                      "surface-tint": "#47d6ff",
+                      "secondary": "#d9b9ff",
+                      "on-surface-variant": "#bbc9cf",
+                      "on-background": "#e5e2e1",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-bright": "#3a3939",
+                      "outline-variant": "#3c494e",
+                      "primary-container": "#00d2ff",
+                      "outline": "#859399",
+                      "on-primary-fixed": "#001f28",
+                      "tertiary-fixed": "#e2e2e4",
+                      "primary": "#a5e7ff",
+                      "inverse-primary": "#00677f",
+                      "on-secondary-fixed-variant": "#6300bb",
+                      "secondary-fixed": "#eedcff",
+                      "on-primary": "#003543",
+                      "surface-dim": "#131313",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#313030",
+                      "background": "#131313",
+                      "tertiary-fixed-dim": "#c6c6c8",
+                      "on-secondary-container": "#d3b0ff",
+                      "on-tertiary-fixed": "#1a1c1d",
+                      "surface-container": "#201f1f",
+                      "primary-fixed-dim": "#47d6ff",
+                      "on-tertiary-container": "#4d4f51",
+                      "on-primary-container": "#00566a",
+                      "surface-container-lowest": "#0e0e0e",
+                      "error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#454749",
+                      "inverse-surface": "#e5e2e1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap-mobile": "80px",
+                      "section-gap": "160px",
+                      "container-padding": "24px",
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "display-xl": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display-xl-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-mono": ["Geist"]
+              },
+              "fontSize": {
+                      "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="dark bg-background text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-lowest flex flex-col py-gutter z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-xl">pets</span>
+</div>
+<div>
+<h1 class="font-display-xl-mobile text-headline-lg-mobile font-bold text-primary leading-tight">PetAI</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Admin System</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 border-r-2 border-primary font-label-mono text-label-mono duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-mono text-label-mono hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">router</span>
+                Devices
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-mono text-label-mono hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">pets</span>
+                Pets
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-mono text-label-mono hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">group</span>
+                Users
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-mono text-label-mono hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+                Voices
+            </a>
+</nav>
+<div class="mt-auto px-4 space-y-4">
+<button class="w-full bg-primary-fixed text-on-primary-fixed font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(71,214,255,0.3)] transition-all">
+<span class="material-symbols-outlined text-sm">analytics</span>
+                System Analytics
+            </button>
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant font-label-mono text-label-mono hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant font-label-mono text-label-mono hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen relative">
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface/80 backdrop-blur-xl border-b border-outline-variant shadow-sm flex justify-between items-center h-16 px-gutter duration-300 backdrop-saturate-150">
+<div class="flex items-center flex-grow">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Search system resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">dynamic_form</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Super Administrator</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 overflow-hidden group-hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a modern software administrator in a minimalist studio. The lighting is soft and high-key, emphasizing a clean and professional aesthetic. The subject is wearing a dark, tailored shirt, and the background is a subtle, out-of-focus tech environment with blue and purple ambient glows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcqsi4K4gP2p6H-ggBRRbpwaDBAfR0E-Qd6zFqLQuY5xKuZNZH91FOsuWXXKuxUgqqJI1sFtatluS5-CflzCJVhiOckgnvRhRgpx9wbuRzGjOwO1-UdrJ1AtaRK18L79A4wvdDh3-l0KzP7mogL7MvQGMjIIQt5zv41GByJ_Gz7-ujv0dbAaCTdI1RskElRL0VIlyAl8eFUs9xinyOeXXhVT1nhCJYJsImE1JTyH4FqTDimlhD0MQZtiF6ehe5waOdMpplhDGn6GGg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-24 px-gutter pb-16">
+<!-- Atmospheric Glow Effects -->
+<div class="atmospheric-glow top-0 right-0 translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+<div class="atmospheric-glow bottom-0 left-0 -translate-x-1/2 translate-y-1/2 opacity-20"></div>
+<!-- Page Title Area -->
+<div class="mb-10 flex items-end justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Dashboard Overview</h2>
+<p class="text-on-surface-variant max-w-xl">Monitor your sentient pet ecosystem. Real-time telemetry from active devices and neural voice engines.</p>
+</div>
+<div class="flex gap-3">
+<div class="flex items-center gap-2 px-4 py-2 glass-card rounded-lg text-xs font-label-mono">
+<span class="w-2 h-2 rounded-full bg-[#47d6ff] status-pulse"></span>
+                        SYSTEM: ONLINE
+                    </div>
+<div class="flex items-center gap-2 px-4 py-2 glass-card rounded-lg text-xs font-label-mono">
+                        UPTIME: 99.98%
+                    </div>
+</div>
+</div>
+<!-- Statistics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+<!-- Stat Card 1 -->
+<div class="glass-card p-6 rounded-2xl group hover:bg-white/[0.05] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-xs font-label-mono text-primary">+15%</span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-label-mono mb-1">TOTAL USERS</h3>
+<p class="text-2xl font-bold text-on-surface tracking-tight">12,482</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="glass-card p-6 rounded-2xl group hover:bg-white/[0.05] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary/10 rounded-lg text-secondary">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="text-xs font-label-mono text-on-surface-variant">Global</span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-label-mono mb-1">TOTAL DEVICES</h3>
+<p class="text-2xl font-bold text-on-surface tracking-tight">15,000</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="glass-card p-6 rounded-2xl group hover:bg-white/[0.05] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg text-primary-container">
+<span class="material-symbols-outlined">sensors</span>
+</div>
+<span class="text-xs font-label-mono text-primary-container">60% Fill</span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-label-mono mb-1">CLAIMED DEVICES</h3>
+<p class="text-2xl font-bold text-on-surface tracking-tight">8,924</p>
+</div>
+<!-- Stat Card 4 -->
+<div class="glass-card p-6 rounded-2xl group hover:bg-white/[0.05] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-fixed/10 rounded-lg text-tertiary-fixed">
+<span class="material-symbols-outlined">pets</span>
+</div>
+<span class="text-xs font-label-mono text-tertiary-fixed">Active Now</span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-label-mono mb-1">ACTIVE PETS</h3>
+<p class="text-2xl font-bold text-on-surface tracking-tight">8,420</p>
+</div>
+<!-- Stat Card 5 -->
+<div class="glass-card p-6 rounded-2xl group hover:bg-white/[0.05] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-on-secondary-container/10 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined">graphic_eq</span>
+</div>
+<span class="text-xs font-label-mono text-on-secondary-container">v2.4</span>
+</div>
+<h3 class="text-on-surface-variant text-xs font-label-mono mb-1">AVAILABLE VOICES</h3>
+<p class="text-2xl font-bold text-on-surface tracking-tight">12</p>
+</div>
+</div>
+<!-- Main Layout: Chart & List -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Chart Section -->
+<div class="lg:col-span-2 glass-card rounded-3xl p-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface">System Health</h3>
+<p class="text-sm text-on-surface-variant">Device connectivity &amp; Neural engine response times</p>
+</div>
+<select class="bg-surface-container border-outline-variant text-xs font-label-mono rounded-lg px-3 py-1 focus:ring-primary focus:border-primary">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>Last 24 Hours</option>
+</select>
+</div>
+<!-- Custom SVG Line Chart -->
+<div class="h-64 w-full relative mt-10">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 1000 200">
+<!-- Background Grid -->
+<line stroke="rgba(255,255,255,0.05)" stroke-width="1" x1="0" x2="1000" y1="0" y2="0"></line>
+<line stroke="rgba(255,255,255,0.05)" stroke-width="1" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="rgba(255,255,255,0.05)" stroke-width="1" x1="0" x2="1000" y1="100" y2="100"></line>
+<line stroke="rgba(255,255,255,0.05)" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.05)" stroke-width="1" x1="0" x2="1000" y1="200" y2="200"></line>
+<!-- Area Gradient -->
+<defs>
+<lineargradient id="chartGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(71, 214, 255, 0.2);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(71, 214, 255, 0);stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<!-- Chart Line -->
+<path d="M0,150 Q100,140 200,100 T400,120 T600,60 T800,80 T1000,40" fill="none" stroke="#47d6ff" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0,150 Q100,140 200,100 T400,120 T600,60 T800,80 T1000,40 L1000,200 L0,200 Z" fill="url(#chartGradient)"></path>
+<!-- Dots -->
+<circle cx="200" cy="100" fill="#47d6ff" r="4"></circle>
+<circle cx="600" cy="60" fill="#47d6ff" r="4"></circle>
+<circle cx="1000" cy="40" fill="#47d6ff" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] font-label-mono text-on-surface-variant uppercase">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span>Sun</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-outline-variant">
+<div>
+<p class="text-[10px] font-label-mono text-on-surface-variant mb-1 uppercase">Mean Latency</p>
+<p class="text-xl font-bold text-on-surface">12ms</p>
+</div>
+<div>
+<p class="text-[10px] font-label-mono text-on-surface-variant mb-1 uppercase">Peak Connectivity</p>
+<p class="text-xl font-bold text-on-surface">14.8k</p>
+</div>
+<div>
+<p class="text-[10px] font-label-mono text-on-surface-variant mb-1 uppercase">Error Rate</p>
+<p class="text-xl font-bold text-error">0.02%</p>
+</div>
+</div>
+</div>
+<!-- Recent Registrations Section -->
+<div class="glass-card rounded-3xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold text-on-surface">Recent Activity</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">more_vert</span>
+</div>
+<div class="space-y-6">
+<!-- Registration Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a user for a technology application. The person has a friendly expression and is illuminated by a split-lighting setup with cool blue and warm orange tones, reflecting a high-tech vaporwave aesthetic. The background is a clean, dark obsidian surface with subtle light refraction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBduABeGduhP2G8D84WYmhwKx_9KDTApsJ3evTg0Us5-tgPIgigknJKMgZwG3X1nvsiEz07bteCjbfRhv55yiI9bzq5FT_SX2HxE9XlqVA4Rlh28TSSbxWr_SiubmA6JBb9OjJkkJkNFbYqBOtltvAwL3gAkbim62Uql2_3KYiSWpxcSCf0MvQUMv6dftHOJqNfCHXtmeOGz-_Ksaft8PIwPVZ36iM63ZS-q01M-CgOAKeVE8s1fU_pujKJTorKzQHsjrsRMwkqeZEu"/>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant">Registered New Device (V-402)</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label-mono text-primary">2m ago</p>
+</div>
+</div>
+<!-- Registration Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A profile image of a young professional woman in a high-tech office environment. The scene is shot with a shallow depth of field, highlighting her face with soft, cinematic lighting. Ambient neon blue accents are visible in the background, creating a futuristic yet approachable mood consistent with a modern admin dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgfnj00i_O10Va61rgVU3Tv07qUlCP2z6kiX99087h0IPjOdNGmN-af5wFmAc5jc8tR9Xjyw4zBZK-7ueiv8oK5pmKDFAeEWhP49ONQBJGbMRp7G_a2R4tyzZBM_gqjYyqUxckhlCFzLQ6t4BIls2DFbziO4OrYIEgA7rNxpFHDWdngtiULCGA4JIj3a2U6BqKYaweT9McuQYPz2e1tR4eFluv0N7Ji3wvuqHW0fX3JkoNWizj_SBZL0hJZpqHRSyktYCTViodvA94"/>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-bold text-on-surface">Sarah Chen</p>
+<p class="text-[10px] text-on-surface-variant">Activated 'Luna' Neural Voice</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label-mono text-on-surface-variant">14m ago</p>
+</div>
+</div>
+<!-- Registration Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden text-primary">
+<span class="material-symbols-outlined">settings_suggest</span>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-bold text-on-surface">System Update</p>
+<p class="text-[10px] text-on-surface-variant">Version 2.4.1 deployed successfully</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label-mono text-on-surface-variant">1h ago</p>
+</div>
+</div>
+<!-- Registration Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male tech enthusiast in a clean, brightly lit environment with dark, architectural backgrounds. The lighting features a strong rim light, giving a high-end commercial look. The color palette consists of deep blacks and cool grays, echoing a premium, minimalist design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEwbIbfZPdM1UIU0ZbpQnvyqk2DT01FKl8azt1Jj3cgjuBJlU0XzfadB99acPrh71Ra7Fegka5FnqL8CAdPrVKfOQcOSckJa1Vs2idskgpTVSWci5BZIVZOtZxlcIYDdKUiDQD2fC_5PcLfQLfOTmtWyiqQMTlX35rZsjOazJ0_DHIf8hgUvogYvXufBTZXII1MyIqedYCgIzxudaoT5dOjLSnhZ5_qupo893cPnS9MQf5ylXrFkL-K0MYzmJQWYcLyTPw3mB5TBHS"/>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-bold text-on-surface">Marcus Thorne</p>
+<p class="text-[10px] text-on-surface-variant">Updated Pet Profile: 'Shadow'</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label-mono text-on-surface-variant">2h ago</p>
+</div>
+</div>
+<!-- Registration Item -->
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A headshot of a business executive in a futuristic, glass-walled office space. The image is crisp and detailed, with a focus on professional clarity. The color scheme is dominated by cool whites and deep grays, with subtle blue light reflections on the glass surfaces to create a sense of depth and advanced technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdh1CNQo5IgMkhXFfiLR-ER2CXCEkU_8LIQz4V6E1KZH5W0I3Mopk9dex0byquTJwWflejYLS57ti5N-skagqt95uxpTx6T3OIuFeLQK9AXWk6RxV62pPjCNzLj4IW7e4bysXNCaw71zxL11xP4LMPKNIKcgrBXCAoGF1ljZ516JffRdNh-2Whj2TzHaib8La913k3_jiGN9EQwQDvc_cW3YpM-z2HpG0ipuhj_kl6vAtThWFRb8Vup2Qs4Cxs48ilLdARAAtG7x6r"/>
+</div>
+<div class="flex-grow">
+<p class="text-sm font-bold text-on-surface">Elena Rodriguez</p>
+<p class="text-[10px] text-on-surface-variant">Cloud Sync Completed</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label-mono text-on-surface-variant">3h ago</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 rounded-xl border border-outline-variant text-xs font-label-mono text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-all">
+                        VIEW ALL ACTIVITY
+                    </button>
+</div>
+</div>
+<!-- Bottom Asymmetric Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+<div class="glass-card rounded-3xl p-8 relative">
+<div class="relative z-10">
+<h3 class="text-xl font-bold text-on-surface mb-4">Neural Engine Status</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-xs font-label-mono text-on-surface-variant">VOICE SYNTHESIS LOAD</span>
+<span class="text-sm font-bold text-primary">64%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 64%"></div>
+</div>
+<div class="flex justify-between items-end mt-4">
+<span class="text-xs font-label-mono text-on-surface-variant">EMOTIONAL CORE MAPPING</span>
+<span class="text-sm font-bold text-secondary">82%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<!-- Decorative Wave SVG -->
+<svg class="absolute bottom-0 right-0 w-48 opacity-20" viewbox="0 0 200 100">
+<path d="M0,50 Q50,0 100,50 T200,50" fill="none" stroke="#47d6ff" stroke-width="2">
+<animate attributename="d" dur="5s" repeatcount="indefinite" values="M0,50 Q50,0 100,50 T200,50; M0,50 Q50,100 100,50 T200,50; M0,50 Q50,0 100,50 T200,50"></animate>
+</path>
+</svg>
+</div>
+<div class="glass-card rounded-3xl p-8 bg-gradient-to-br from-primary/5 to-transparent">
+<div class="flex flex-col h-full justify-between">
+<div>
+<h3 class="text-xl font-bold text-on-surface mb-2">Global Distribution</h3>
+<p class="text-sm text-on-surface-variant">Currently active devices across major hubs.</p>
+</div>
+<div class="flex items-center gap-6 mt-6">
+<div class="flex-shrink-0 w-24 h-24 rounded-full border-4 border-primary/20 flex items-center justify-center">
+<div class="text-center">
+<p class="text-xs font-label-mono text-on-surface-variant">ACTIVE</p>
+<p class="text-xl font-bold">8.9k</p>
+</div>
+</div>
+<div class="space-y-2 flex-grow">
+<div class="flex items-center justify-between text-[10px] font-label-mono">
+<span>NORTH AMERICA</span>
+<span>42%</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-label-mono">
+<span>EUROPE</span>
+<span>31%</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-label-mono">
+<span>ASIA PACIFIC</span>
+<span>27%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Optional micro-interaction: Add hover glow effect based on mouse position for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

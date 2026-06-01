@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PetAI | Home Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>:root {
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08)
+    }
+body {
+    background-color: #131313;
+    color: #e5e2e1;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden
+    }
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05)
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDcVRU5PcE8MghFV7zSStq6UcobhCMtkzAYr1fDGOtg8-TUXOELxXd3DFsDjfEbBFTKoEK45Qs-DTwix-oJD6AzZbEsbphuS0oAqe7aV1eR9gigFC_GycLJqxDECZ0khYuB7YbqG8UEPmiHiPRvlB-FUmzMXKyLBZL54eiu8XaxdUkIAy_3KpgMP5GPe95NNDQytw5Qox8VA7-7n5xsacIEhsaGzoeJr8bszom30RLuXed0WwZJOOC8hBrlI_UraseVZlJgfK54BYob);
+    opacity: 0.05;
+    pointer-events: none
+    }
+.heartbeat-dot {
+    box-shadow: 0 0 12px #00d2ff;
+    animation: heartbeat 2s infinite ease-in-out
+    }
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        } 50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+        } 100% {
+        transform: scale(1);
+        opacity: 1;
+        }
+    }
+.voice-wave {
+    stroke-dasharray: 100;
+    animation: wave 4s infinite linear
+    }
+@keyframes wave {
+    0% {
+        stroke-dashoffset: 200;
+        } 100% {
+        stroke-dashoffset: 0;
+        }
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#d3b0ff",
+                        "secondary-container": "#6c04ca",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed": "#e2e2e4",
+                        "surface-dim": "#131313",
+                        "primary-container": "#00d2ff",
+                        "on-tertiary-container": "#4d4f51",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "primary": "#a5e7ff",
+                        "secondary": "#d9b9ff",
+                        "on-surface-variant": "#bbc9cf",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "on-primary-fixed-variant": "#004e60",
+                        "tertiary": "#dcdddf",
+                        "on-primary-container": "#00566a",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary": "#450086",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-background": "#e5e2e1",
+                        "surface-tint": "#47d6ff",
+                        "surface-container": "#201f1f",
+                        "secondary-fixed": "#eedcff",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "background": "#131313",
+                        "on-secondary-fixed": "#2a0054",
+                        "on-primary-fixed": "#001f28",
+                        "on-primary": "#003543",
+                        "outline-variant": "#3c494e",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-container": "#c0c1c3",
+                        "surface": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "inverse-primary": "#00677f",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#2f3132",
+                        "surface-variant": "#353534",
+                        "primary-fixed": "#b6ebff",
+                        "primary-fixed-dim": "#47d6ff",
+                        "outline": "#859399"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "container-padding": "24px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "section-gap-mobile": "80px",
+                        "gutter": "24px",
+                        "section-gap": "160px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-mono": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-xl-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 dark:bg-background/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-container-padding h-16">
+<div class="flex items-center gap-3 active:scale-95 duration-200 cursor-pointer">
+<div class="w-10 h-10 rounded-full border border-primary/20 p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="A close-up studio portrait of a modern, tech-forward male user with soft studio lighting. The aesthetic is clean and high-key, using a minimalist color palette of whites and cool grays to reflect a sophisticated tech enthusiast's profile. The image is crisp, professional, and fits perfectly into a futuristic digital interface with a sleek, polished look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3IdodoqJPjzNfsGL4CqRjV63SCph8V9eeDwf2gkWkMtIfo81LVherc2MJggagt1HjE4M-TdIDTcHBqnzQql8qp82mjI3hSqjr9qWfyKTcS_g52T1rRbeBx3yY8Jscvf5VWM1MwSaTRli8X1KkTwVWwKrqtaP5Sm9B12dpCotrATd3kx2Xtv3Aq8EoOpf-szDi7gE3vB__e8AO6lYo1MQIK9aYC8ADPEg7m0p2ersPaqmQ6bl1wgt-aapEzkwsYAJ_IwtAle-muvDj"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-[16px] font-bold tracking-tighter text-primary dark:text-primary leading-none">PetAI</span>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container heartbeat-dot"></span>
+<span class="font-label-mono text-label-mono text-on-surface-variant/80 uppercase">System Online</span>
+</div>
+</div>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+            sensors
+        </button>
+</header>
+<main class="pt-24 px-container-padding space-y-stack-lg">
+<!-- Hero Card: Luna -->
+<section class="glass-card relative rounded-3xl p-stack-lg overflow-hidden group">
+<div class="noise-overlay absolute inset-0"></div>
+<!-- Atmospheric Glow -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 blur-[100px] rounded-full"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-stack-lg">
+<div class="relative w-48 h-48 md:w-56 md:h-56">
+<div class="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-75 group-hover:scale-90 transition-transform duration-700"></div>
+<img alt="Luna" class="relative w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uhMtoP9EuxzuWE5xT-TEsfxrmjUNO6ahwrGexlNjs-R0iCEMKHg6ksNzlmFV9xYDOt43tcgY63SE7TC4bGhMHHqA9VZSsEaxTkYw2kvMQG5Y2mw34ZoO_wOumTLaPciDzYhpr09broFwCV-dbUq9vtJ7DbALSV9d5w_Xsxp_WPSkRb9lGJTTH0eQufKXrCJCHNMRByLLrwGpgpjo1npK6JcejjNxhR-uBIKyuC3EcX0r7zCRPlwqJT6D7U2"/>
+</div>
+<div class="flex-1 space-y-stack-sm text-center md:text-left">
+<div class="flex items-center justify-center md:justify-start gap-3">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Luna</h2>
+<span class="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full font-label-mono text-label-mono text-primary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                            Active
+                        </span>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-xs mx-auto md:mx-0">
+                        Synthesizing emotional patterns. Connection state is optimal.
+                    </p>
+<div class="pt-stack-md">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-mono text-label-mono text-on-surface/60">Neural Sync</span>
+<span class="font-label-mono text-label-mono text-primary">98%</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[98%] shadow-[0_0_10px_rgba(165,231,255,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Grid -->
+<section class="grid grid-cols-2 gap-stack-md">
+<div class="glass-card rounded-2xl p-stack-md flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-[20px]">battery_charging_80</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Battery</span>
+</div>
+<div class="font-headline-lg-mobile text-[24px] text-on-surface">92%</div>
+<div class="w-full h-1 bg-white/5 rounded-full">
+<div class="h-full bg-primary-container w-[92%] rounded-full"></div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-stack-md flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-[20px]">sentiment_very_satisfied</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Mood</span>
+</div>
+<div class="font-headline-lg-mobile text-[24px] text-on-surface">Happy</div>
+<div class="flex gap-1">
+<div class="h-1 w-full bg-secondary/40 rounded-full"></div>
+<div class="h-1 w-full bg-secondary/40 rounded-full"></div>
+<div class="h-1 w-full bg-secondary/40 rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section>
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-4 tracking-widest">Interface Actions</h3>
+<div class="grid grid-cols-4 gap-4">
+<button class="flex flex-col items-center gap-3 group">
+<div class="w-full aspect-square glass-card rounded-2xl flex items-center justify-center group-active:scale-90 transition-transform bg-white/5 border-white/10 hover:border-primary/40">
+<span class="material-symbols-outlined text-primary">record_voice_over</span>
+</div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Talk</span>
+</button>
+<button class="flex flex-col items-center gap-3 group">
+<div class="w-full aspect-square glass-card rounded-2xl flex items-center justify-center group-active:scale-90 transition-transform bg-white/5 border-white/10 hover:border-primary/40">
+<span class="material-symbols-outlined text-primary">id_card</span>
+</div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Identity</span>
+</button>
+<button class="flex flex-col items-center gap-3 group">
+<div class="w-full aspect-square glass-card rounded-2xl flex items-center justify-center group-active:scale-90 transition-transform bg-white/5 border-white/10 hover:border-primary/40">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+</div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Voice</span>
+</button>
+<button class="flex flex-col items-center gap-3 group">
+<div class="w-full aspect-square glass-card rounded-2xl flex items-center justify-center group-active:scale-90 transition-transform bg-white/5 border-white/10 hover:border-primary/40">
+<span class="material-symbols-outlined text-primary">settings</span>
+</div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Settings</span>
+</button>
+</div>
+</section>
+<!-- Recent Activity -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">System Logs</h3>
+<span class="text-primary font-label-mono text-[10px] cursor-pointer hover:underline">View All</span>
+</div>
+<div class="space-y-3">
+<div class="glass-card rounded-xl p-4 flex gap-4 items-start border-l-2 border-l-primary/40">
+<div class="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-primary">psychology</span>
+</div>
+<div>
+<p class="font-body-md text-[14px] text-on-surface leading-tight">Luna expressed curiosity towards the window light.</p>
+<span class="font-label-mono text-[10px] text-on-surface-variant/60">2m ago • Cognition</span>
+</div>
+</div>
+<div class="glass-card rounded-xl p-4 flex gap-4 items-start border-l-2 border-l-secondary/40">
+<div class="w-8 h-8 rounded-full bg-secondary/5 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">sync_alt</span>
+</div>
+<div>
+<p class="font-body-md text-[14px] text-on-surface leading-tight">Biometric sync complete. Vital signs stable.</p>
+<span class="font-label-mono text-[10px] text-on-surface-variant/60">15m ago • Core System</span>
+</div>
+</div>
+<div class="glass-card rounded-xl p-4 flex gap-4 items-start border-l-2 border-l-primary-container/40">
+<div class="w-8 h-8 rounded-full bg-primary-container/5 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-primary-container">energy_program_saving</span>
+</div>
+<div>
+<p class="font-body-md text-[14px] text-on-surface leading-tight">Power optimization cycle initiated by Luna.</p>
+<span class="font-label-mono text-[10px] text-on-surface-variant/60">1h ago • Power</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full rounded-t-xl z-50 bg-surface-container/80 dark:bg-surface-container/80 backdrop-blur-2xl border-t border-white/5 flex justify-around items-center pt-2 pb-safe-bottom px-2 h-20">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary bg-primary-container/10 rounded-xl px-3 py-1 transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-mono text-label-mono mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-mono text-label-mono mt-1">Talk</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-mono text-label-mono mt-1">Pets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-mono text-label-mono mt-1">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-on-surface-variant/60 hover:text-primary transition-colors active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-mono text-label-mono mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for glass cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Optional: Dynamic glow effect could be added here
+            });
+        });
+
+        // Simple haptic-like vibration on interaction if supported
+        const buttons = document.querySelectorAll('button, a');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+    </script>
+</body></html>

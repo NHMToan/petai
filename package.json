@@ -1,0 +1,21 @@
+{
+  "name": "petai",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/mobile",
+    "api"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace web",
+    "build": "npm run build --workspace web",
+    "preview": "npm run preview --workspace web",
+    "mobile:dev": "npm run start --workspace mobile",
+    "mobile:android": "npm run android --workspace mobile",
+    "mobile:ios": "npm run ios --workspace mobile",
+    "api:dev": "npm run start:dev --workspace api",
+    "api:build": "npm run build --workspace api",
+    "api:prisma:generate": "npm run prisma:generate --workspace api",
+    "api:prisma:seed": "npm run prisma:seed --workspace api"
+  }
+}

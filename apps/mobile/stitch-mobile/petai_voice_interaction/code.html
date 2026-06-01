@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI - Voice Interaction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#d3b0ff",
+                        "secondary-container": "#6c04ca",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-fixed": "#e2e2e4",
+                        "surface-dim": "#131313",
+                        "primary-container": "#00d2ff",
+                        "on-tertiary-container": "#4d4f51",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#353534",
+                        "on-error": "#690005",
+                        "primary": "#a5e7ff",
+                        "secondary": "#d9b9ff",
+                        "on-surface-variant": "#bbc9cf",
+                        "surface-variant": "#353534",
+                        "outline-variant": "#3c494e",
+                        "background": "#131313",
+                        "surface": "#131313",
+                        "surface-container": "#201f1f",
+                        "on-surface": "#e5e2e1",
+                        "outline": "#859399"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "container-padding": "24px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "section-gap-mobile": "80px",
+                        "gutter": "24px",
+                        "section-gap": "160px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-mono": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-xl-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1)
+    }
+.glow-pulse {
+    filter: drop-shadow(0 0 15px rgba(165, 231, 255, 0.4))
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA4xrvMdRQtCUKF5WvVcIBjSgKc683AM_vWPkv96QSYMvW4SfQdm5COWUG5cYX05l7pvQKd7xSPQ7jw7LL84JeQR9FfbimdXXg3JcwOGEC5PgMoCEX350mYYIzANYziD51NnQpaQ8PUMMlDu3lV6LRfByerhgV7mYTjWGkevUuzZ_igTZVDIX2DQ_zg4saPi2eYfTwBrEzg8Tc-tGHi5usJtxsgqXxvkE1iDxDmbTLoeKGJwl96c-4srET5JT4MdpddoRz9EhVIBud4);
+    opacity: 0.05;
+    pointer-events: none
+    }
+@keyframes wave {
+    0%, 100% {
+        height: 10px;
+        } 50% {
+        height: 60px;
+        }
+    }
+.wave-bar {
+    width: 4px;
+    background: #a5e7ff;
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden selection:bg-primary/30">
+<div class="noise-overlay fixed inset-0 z-[100]"></div>
+<!-- Atmospheric Ambient Glows -->
+<div class="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-secondary-container/10 blur-[100px] pointer-events-none"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-container-padding h-16">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="A macro portrait of a highly intelligent-looking Shiba Inu dog with soulful eyes, set against a dark, minimalist studio background with soft neon blue rim lighting. The aesthetic is clean, sophisticated, and technologically advanced, echoing a premium AI persona. The lighting is low-key with high-contrast highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOoExiuZkO5p6XotCr86DL-Ddc0u6I5V19ksgwXBFsYonIhrPOEA95IiCv4Zdk3IwKAz26k1hmwgopSmTYnzdTC7ai3IjKUBIl7qRaMMHJHk3zhYhckBO6UkfSwdfyfIRynKZ2QAhZwpTeYoHreP2h8dPP0ofYgTUHxtndtVfxKGu_t8I1do0J2-sBKc7sMq7YnTHjbv1Qe_letHgU5Bkv9JCCF-0v272cT8vjhl7e70J43_dj-0f6gKjRaD-9-MuZRpvsbhAQEcvK"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-[16px] font-bold tracking-tighter text-primary">Luna</span>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary glow-pulse animate-pulse"></span>
+<span class="font-label-mono text-label-mono text-on-surface-variant/70">LISTENING...</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:opacity-80 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-primary">sensors</span>
+</button>
+</header>
+<main class="relative h-screen flex flex-col items-center justify-center px-container-padding pt-16 pb-32">
+<!-- Transcript Bubbles Container -->
+<div class="w-full max-w-md space-y-4 mb-12 opacity-80">
+<div class="flex justify-start">
+<div class="glass-card px-4 py-3 rounded-2xl rounded-bl-none max-w-[80%]">
+<p class="text-on-surface/90 text-[15px]">How are you feeling today?</p>
+</div>
+</div>
+<div class="flex justify-end">
+<div class="bg-primary/10 border border-primary/20 px-4 py-3 rounded-2xl rounded-br-none max-w-[80%]">
+<p class="text-primary text-[15px] font-medium">I feel vibrant and ready to learn.</p>
+</div>
+</div>
+</div>
+<!-- Main Visual: Voice Waveform -->
+<div class="relative w-full aspect-square flex items-center justify-center">
+<!-- Pulsing Circle Backgrounds -->
+<div class="absolute w-64 h-64 bg-primary/5 rounded-full animate-ping duration-1000"></div>
+<div class="absolute w-80 h-80 border border-primary/10 rounded-full"></div>
+<!-- Waveform Animation -->
+<div class="flex items-center justify-center gap-1.5 h-32" id="waveform">
+<!-- Generated Bars -->
+</div>
+</div>
+</main>
+<!-- Bottom Controls & Navigation Shell Suppression Logic Applied -->
+<!-- This screen is task-focused (Voice Interaction), so global BottomNavBar is hidden for focus -->
+<div class="fixed bottom-0 left-0 w-full p-container-padding flex flex-col items-center gap-6 z-50">
+<!-- Interaction Status -->
+<div class="px-4 py-1.5 rounded-full border border-outline-variant/30 bg-surface-container-low/50 backdrop-blur-md">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Hold to Speak</span>
+</div>
+<!-- Push to Talk Button -->
+<button class="group relative w-20 h-20 rounded-full bg-white flex items-center justify-center transition-all duration-300 active:scale-90 hover:shadow-[0_0_40px_rgba(165,231,255,0.6)]" id="ptt-button">
+<span class="material-symbols-outlined text-background text-3xl transition-transform group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">mic</span>
+<!-- Outer Glow Ring -->
+<div class="absolute -inset-2 rounded-full border-2 border-primary/20 animate-pulse"></div>
+</button>
+<!-- Exit Action -->
+<button class="mt-2 text-on-surface-variant/60 hover:text-on-surface transition-colors font-label-mono text-label-mono">
+            TAP TO EXIT
+        </button>
+</div>
+<!-- Voice Navigation / Settings / Back (Bottom Navigation contextually hidden as per "Task-Focused" rule) -->
+<script>
+        // Generate dynamic waveform bars
+        const waveform = document.getElementById('waveform');
+        const barCount = 32;
+
+        for (let i = 0; i < barCount; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'wave-bar';
+            
+            // Randomize animation delay and initial height for more organic feel
+            const delay = Math.random() * 2;
+            const duration = 0.5 + Math.random() * 1.5;
+            bar.style.animationDelay = `${delay}s`;
+            bar.style.animationDuration = `${duration}s`;
+            bar.style.opacity = 0.3 + (Math.sin(i / barCount * Math.PI) * 0.7); // Tapered opacity
+            
+            waveform.appendChild(bar);
+        }
+
+        // Lightweight Micro-interaction for PTT
+        const pttBtn = document.getElementById('ptt-button');
+        let isHolding = false;
+
+        pttBtn.addEventListener('mousedown', () => startSpeaking());
+        pttBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startSpeaking();
+        });
+
+        window.addEventListener('mouseup', () => stopSpeaking());
+        window.addEventListener('touchend', () => stopSpeaking());
+
+        function startSpeaking() {
+            isHolding = true;
+            pttBtn.classList.add('scale-95', 'bg-primary');
+            pttBtn.querySelector('span').classList.add('text-white');
+            document.querySelectorAll('.wave-bar').forEach(bar => {
+                bar.style.animationDuration = '0.4s';
+                bar.style.background = '#00d2ff';
+            });
+        }
+
+        function stopSpeaking() {
+            if (!isHolding) return;
+            isHolding = false;
+            pttBtn.classList.remove('scale-95', 'bg-primary');
+            pttBtn.querySelector('span').classList.remove('text-white');
+            document.querySelectorAll('.wave-bar').forEach(bar => {
+                bar.style.animationDuration = (0.8 + Math.random() * 1).toString() + 's';
+                bar.style.background = '#a5e7ff';
+            });
+        }
+    </script>
+</body></html>

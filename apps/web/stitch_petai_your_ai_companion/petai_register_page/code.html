@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register | PetAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#dcdddf",
+                        "primary": "#a5e7ff",
+                        "surface-bright": "#3a3939",
+                        "secondary": "#d9b9ff",
+                        "on-error": "#690005",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed-dim": "#47d6ff",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#001f28",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#00d2ff",
+                        "surface": "#131313",
+                        "secondary-fixed": "#eedcff",
+                        "on-primary-container": "#00566a",
+                        "inverse-surface": "#e5e2e1",
+                        "outline-variant": "#3c494e",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "primary-fixed": "#b6ebff",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353534",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary": "#450086",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed": "#e2e2e4",
+                        "surface-tint": "#47d6ff",
+                        "on-tertiary-container": "#4d4f51",
+                        "on-primary": "#003543",
+                        "secondary-container": "#6c04ca",
+                        "tertiary-container": "#c0c1c3",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed": "#2a0054",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed-variant": "#004e60",
+                        "on-surface-variant": "#bbc9cf",
+                        "surface-dim": "#131313",
+                        "on-secondary-container": "#d3b0ff",
+                        "inverse-primary": "#00677f",
+                        "outline": "#859399",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#2f3132",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "background": "#131313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "section-gap-mobile": "80px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "section-gap": "160px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-mono": ["Geist", "monospace"],
+                        "display-xl": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>body {
+    background-color: #131313;
+    color: #e5e2e1;
+    overflow-x: hidden
+    }
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative
+    }
+.glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuC1KbeCB-t5me7UQKaVW6kxGeuRkTZgC3JDCxMGXx4jlHufQq9yzJmCdTjVtnj_Zq292S1PYZApVBj8ips1meQo6K1Y-RGtb447Q_dryr0LQt0plh6V3P11bvsD0pkCp5PPsTZAKXGYXWXqZsLlTK_6YB5iPtq5YYlqTzX9MldyI9wcTlHHk5E0GV_g66uCY3s-jgrTCuaLv09YpklRLbwB84Ds3cfusMl3Yx1WRX8dO6vU5Sze74Be3kvDIpgrSSgkp3WSwOsYo7UL);
+    opacity: 0.05;
+    pointer-events: none
+    }
+.glow-accent {
+    filter: blur(120px);
+    opacity: 0.4
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.neon-glow:hover {
+    box-shadow: 0 0 20px rgba(165, 231, 255, 0.3)
+    }</style>
+</head>
+<body class="font-body-md text-body-md antialiased">
+<!-- Split Screen Container -->
+<main class="min-h-screen flex flex-col md:flex-row">
+<!-- Left Side: Cinematic Visual -->
+<section class="relative w-full md:w-[55%] h-[40vh] md:h-screen overflow-hidden flex items-center justify-center">
+<!-- Dynamic Background -->
+<div class="absolute inset-0 z-0">
+<img alt="Atmospheric glowing background" class="w-full h-full object-cover scale-110" src="https://lh3.googleusercontent.com/aida/ADBb0ugkblfUXdiymexi0KyeLvKbdev3v3v3lG-m3fQ-yP15cmdH-2l4yTJ18cKoEbOPoHvOeih5x3KsXIak6MlduS5TGqjvLlmwDuM5osMv-STWgEjbTUpDBCs3uBXMKaPCywzuIUePWitQHprv9AiDSR6d-f7VcSilaT_OK2qsMPJ3gZ-tGnBTbE3N7j4XJ5Z_lIWQa-acnZ-KvmCJD7cJlOyG9jnGjQ_fqWW_Ujjr6F7Ul0WMQvnaGCQd8qRj"/>
+</div>
+<!-- Atmospheric Glows -->
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary glow-accent rounded-full z-10"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary glow-accent rounded-full z-10"></div>
+<!-- Content Overlay -->
+<div class="relative z-20 w-full h-full flex flex-col items-center justify-center p-container-padding">
+<div class="relative max-w-lg transition-transform duration-700 hover:scale-[1.02]">
+<img alt="PetAI Companion" class="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" src="https://lh3.googleusercontent.com/aida/ADBb0uglhcWTNaTW1G654_rUvQyiJMpv34YiJP59gPSDws8D_swAfLrKR0OqYtapma8s0_7z0K_iR7_hIPrjhDaOs_fBk-S0t_hl8Gy2-0IgUguKzMe6QlmZyR3iEAhsK7p5XynrC4w4cFrWE01i8-Em_TgmjhhlAytC9GHvIHkjg-UsYZUceHKNVdSWd21NkL12U4zeRRNqh-UGO9lhWKXa8DlC35aMmNbRh4Qn2tIOxGbR9lEnivU9DcEaq77l"/>
+<!-- Caption -->
+<div class="absolute -bottom-12 left-1/2 -translate-x-1/2 w-full text-center">
+<p class="font-headline-lg text-headline-lg text-on-surface drop-shadow-md">
+                            Your AI companion that truly feels alive.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Floating Brand Anchor -->
+<div class="absolute top-10 left-10 z-30 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-background" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<span class="font-headline-lg text-[24px] font-bold tracking-tighter text-on-surface">PetAI</span>
+</div>
+</section>
+<!-- Right Side: Registration Form -->
+<section class="relative w-full md:w-[45%] h-full md:min-h-screen bg-background flex items-center justify-center p-6 md:p-12">
+<!-- Mobile Background Glows (Subtle) -->
+<div class="md:hidden absolute inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px]"></div>
+</div>
+<div class="w-full max-w-md space-y-stack-lg z-10">
+<!-- Header Area -->
+<div class="space-y-stack-sm">
+<div class="flex items-center gap-2 mb-4">
+<div class="h-[2px] w-8 bg-primary"></div>
+<span class="font-label-mono text-label-mono text-primary uppercase">New Account</span>
+</div>
+<h1 class="font-headline-lg text-[32px] md:text-headline-lg text-on-surface leading-tight">Create your PetAI account</h1>
+<p class="font-body-md text-on-surface-variant max-w-sm">
+                        Start your journey with an AI companion that grows with you.
+                    </p>
+</div>
+<!-- Registration Card -->
+<div class="glass-card p-10 rounded-[2rem] space-y-stack-lg">
+<form action="#" class="space-y-6" onsubmit="event.preventDefault();">
+<!-- Full Name -->
+<div class="space-y-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant px-1 uppercase" for="name">Full Name</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
+<input class="w-full bg-black border border-outline-variant/30 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" id="name" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<!-- Email Address -->
+<div class="space-y-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant px-1 uppercase" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full bg-black border border-outline-variant/30 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" id="email" placeholder="hello@petai.io" type="email"/>
+</div>
+</div>
+<!-- Password -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant px-1 uppercase" for="password">Password</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full bg-black border border-outline-variant/30 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-mono text-label-mono text-on-surface-variant px-1 uppercase" for="confirm">Confirm</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">security</span>
+<input class="w-full bg-black border border-outline-variant/30 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" id="confirm" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full py-5 bg-on-surface text-background font-bold text-lg rounded-xl neon-glow transition-all active:scale-[0.98] mt-4 flex items-center justify-center gap-2">
+<span>Create Account</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<!-- Social Join -->
+<div class="pt-6 border-t border-outline-variant/20">
+<div class="flex items-center justify-center gap-6">
+<button class="flex items-center justify-center w-12 h-12 rounded-full border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">brand_family</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 rounded-full border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">globe</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<div class="text-center">
+<p class="text-on-surface-variant">
+                        Already have an account? 
+                        <a class="text-primary font-bold hover:underline ml-1" href="#">Login</a>
+</p>
+</div>
+</div>
+<!-- Subtle Brand Background Text -->
+<div class="absolute bottom-10 right-10 opacity-[0.03] select-none pointer-events-none hidden md:block">
+<span class="font-display-xl text-[120px] font-extrabold uppercase">GENESIS</span>
+</div>
+</section>
+</main>
+<script>
+        // Atmospheric floating effect for the PetAI companion image
+        const img = document.querySelector('img[alt="PetAI Companion"]');
+        let degree = 0;
+        
+        function animate() {
+            degree += 0.02;
+            const yOffset = Math.sin(degree) * 15;
+            if (img) {
+                img.parentElement.style.transform = `translateY(${yOffset}px)`;
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Mouse move light interaction for the register card
+        const card = document.querySelector('.glass-card');
+        document.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    </script>
+</body></html>

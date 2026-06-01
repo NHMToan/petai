@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PetAI Admin - Pets Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+        .voice-wave-anim {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 16px;
+        }
+        .wave-bar {
+            width: 2px;
+            background: #47d6ff;
+            border-radius: 1px;
+            animation: wave-grow 1s ease-in-out infinite alternate;
+        }
+        @keyframes wave-grow {
+            0% { height: 4px; }
+            100% { height: 14px; }
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3c494e; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#b6ebff",
+                    "on-error": "#690005",
+                    "tertiary": "#dcdddf",
+                    "on-surface": "#e5e2e1",
+                    "on-secondary": "#450086",
+                    "surface": "#131313",
+                    "on-primary-fixed-variant": "#004e60",
+                    "tertiary-container": "#c0c1c3",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-container": "#6c04ca",
+                    "on-tertiary": "#2f3132",
+                    "surface-variant": "#353534",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#2a0054",
+                    "secondary-fixed-dim": "#d9b9ff",
+                    "surface-container-highest": "#353534",
+                    "surface-tint": "#47d6ff",
+                    "secondary": "#d9b9ff",
+                    "on-surface-variant": "#bbc9cf",
+                    "on-background": "#e5e2e1",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-bright": "#3a3939",
+                    "outline-variant": "#3c494e",
+                    "primary-container": "#00d2ff",
+                    "outline": "#859399",
+                    "on-primary-fixed": "#001f28",
+                    "tertiary-fixed": "#e2e2e4",
+                    "primary": "#a5e7ff",
+                    "inverse-primary": "#00677f",
+                    "on-secondary-fixed-variant": "#6300bb",
+                    "secondary-fixed": "#eedcff",
+                    "on-primary": "#003543",
+                    "surface-dim": "#131313",
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#313030",
+                    "background": "#131313",
+                    "tertiary-fixed-dim": "#c6c6c8",
+                    "on-secondary-container": "#d3b0ff",
+                    "on-tertiary-fixed": "#1a1c1d",
+                    "surface-container": "#201f1f",
+                    "primary-fixed-dim": "#47d6ff",
+                    "on-tertiary-container": "#4d4f51",
+                    "on-primary-container": "#00566a",
+                    "surface-container-lowest": "#0e0e0e",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#454749",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap-mobile": "80px",
+                    "section-gap": "160px",
+                    "container-padding": "24px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "display-xl": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-xl-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-mono": ["Geist"]
+            },
+            "fontSize": {
+                    "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- SideNavBar Anchor -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-lowest flex flex-col py-gutter z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-xl-mobile text-headline-lg-mobile font-bold text-primary leading-tight">PetAI</span>
+<span class="font-label-mono text-[10px] tracking-widest text-outline uppercase">Admin System</span>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-mono text-label-mono">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">router</span>
+<span class="font-label-mono text-label-mono">Devices</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-primary bg-primary/10 border-r-2 border-primary duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-label-mono text-label-mono font-bold">Pets</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-mono text-label-mono">Users</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-mono text-label-mono">Voices</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 px-4 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center gap-2 hover:bg-surface-bright transition-all group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">analytics</span>
+<span class="font-label-mono text-label-mono">System Analytics</span>
+</button>
+</div>
+<div class="mt-6 border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-mono text-[11px]">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-2 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-mono text-[11px]">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar Anchor -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant flex justify-between items-center px-gutter ml-64 transition-all duration-300 backdrop-saturate-150 shadow-sm">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-full pl-12 pr-4 py-2 text-body-md focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-outline transition-all" placeholder="Search Pet Name or Owner Email..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dynamic_form</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right">
+<p class="font-label-mono text-label-mono text-on-surface group-hover:text-primary transition-colors">Admin User</p>
+<p class="text-[10px] text-outline">Super Admin</p>
+</div>
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full border border-outline-variant group-hover:border-primary transition-colors" data-alt="A professional headshot of a modern software administrator with a neutral expression. The lighting is crisp and cinematic, using cool blue tones to match a high-tech corporate environment. The background is a soft-focus office with minimalist digital art and sleek hardware interfaces, maintaining a dark and premium visual language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoAQ3vNUiXttiq-OvmjFVow3BmcKh_cmql5YL7WvTEQ0HbHsivmroJ4KIsfihWr8nh3_E26ZzdNFYZa84oZGdy00woqHJD4-yzZ8-aC0OzlGYKAbl9cpHFu_xYVNWla3slNrO52vNsgHbdl04xVSrD_nkOhhu6-YsO8eIGNrIoUBLr6t3chgvLHSuC5IzGzCUnhqgpK_ihrNJk146sPnstJlZpfVKjhb84U4OOQos_w-Sl_rScDB9h95Gpkeo1rrZFWMiRd410AiSX"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 px-gutter pb-section-gap-mobile">
+<!-- Dashboard Header -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<h1 class="font-display-xl-mobile text-headline-lg-mobile font-bold text-on-surface mb-2">Pets Management</h1>
+<p class="text-on-surface-variant max-w-lg">Manage and monitor all active digital companions across the global PetAI neural network.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-outline-variant bg-surface-container hover:bg-surface-bright transition-all font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    Filters
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-mono text-label-mono hover:shadow-[0_0_20px_rgba(165,231,255,0.4)] transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    New Companion
+                </button>
+</div>
+</div>
+<!-- Table Bento Container -->
+<div class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
+<!-- Table Header Stats -->
+<div class="grid grid-cols-4 border-b border-outline-variant divide-x divide-outline-variant">
+<div class="p-6">
+<p class="font-label-mono text-[10px] text-outline uppercase mb-1">Total Companions</p>
+<p class="font-display-xl-mobile text-headline-lg-mobile font-bold text-primary">1,284</p>
+</div>
+<div class="p-6">
+<p class="font-label-mono text-[10px] text-outline uppercase mb-1">Active Neural Links</p>
+<p class="font-display-xl-mobile text-headline-lg-mobile font-bold text-secondary">942</p>
+</div>
+<div class="p-6">
+<p class="font-label-mono text-[10px] text-outline uppercase mb-1">Voice Processing Load</p>
+<div class="flex items-center gap-2">
+<p class="font-display-xl-mobile text-headline-lg-mobile font-bold text-on-surface">24%</p>
+<div class="voice-wave-anim">
+<div class="wave-bar" style="animation-delay: 0.1s"></div>
+<div class="wave-bar" style="animation-delay: 0.3s"></div>
+<div class="wave-bar" style="animation-delay: 0.2s"></div>
+<div class="wave-bar" style="animation-delay: 0.5s"></div>
+</div>
+</div>
+</div>
+<div class="p-6 bg-primary/5">
+<p class="font-label-mono text-[10px] text-primary uppercase mb-1">System Health</p>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary animate-pulse"></span>
+<p class="font-label-mono text-label-mono font-bold text-primary">OPTIONAL</p>
+</div>
+</div>
+</div>
+<!-- The High-Density Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase">Pet Name</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase">Owner</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase">Device Code</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase text-center">Gender</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase">Voice Core</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase">Wake Word</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase text-center">Status</th>
+<th class="px-6 py-4 font-label-mono text-label-mono text-outline uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Pet Avatar" class="w-10 h-10 rounded-lg object-cover border border-outline-variant" data-alt="A close-up studio portrait of a French Bulldog looking curiously at the camera. The photography is high-contrast with a dark charcoal background. The fur is detailed with soft, warm key lighting highlighting the dog's features. The overall aesthetic is clean, premium, and sophisticated, fitting a high-tech pet brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC75nVDzX7u00o0gGKWb_-gFbAI-OxD4zEysqvU-022m5x2yt0oV-MSQ_7sK-17AO4tHl5sGOT_uIV2r6IKKgadETbNDqja9pUpH73SsTuXTW--cpzGjxdunNPGOvg4qTyvoKnyX9C5_dYwwVBrvU6pafL0Qyn6lBtb9mZP2MqpwjHzYHPN_OxT0DdR905cAUuzNhl9wfa5RA-oPH61uyWLhYP_0W-e6b6EQOp4QYHSzmjJCOjpTgwdKVITBP0bLcE7wI2YjegcM_4h"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-surface-container shadow-sm"></div>
+</div>
+<span class="font-bold text-on-surface group-hover:text-primary transition-colors">Nimbus</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-body-md text-on-surface">Alex Rivera</span>
+<span class="text-[11px] text-outline group-hover:text-primary/70 transition-colors">alex.r@neural.io</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-2 py-1 rounded">PAI-7729-X</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="material-symbols-outlined text-outline text-[20px]">male</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">graphic_eq</span>
+<span class="text-body-md">Nova</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-md italic text-on-surface-variant">"Hey Nimbus"</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="w-12 h-6 bg-primary/20 rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-primary rounded-full translate-x-6 transition-transform"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-on-surface" title="View Logs">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-primary" title="Edit Profile">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Pet Avatar" class="w-10 h-10 rounded-lg object-cover border border-outline-variant" data-alt="An elegant, long-haired ginger cat sitting regally on a dark velvet surface. The lighting is dramatic and moody, emphasizing the texture of the fur and the deep amber eyes. The background is entirely black, creating a focused, high-end look that feels both technological and biological." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7K8iGP65dI5pUmhK16fzHdSikNqp4dqM8oAjFb-y4tm3yeANk7XPuesRBeHGPm8g1YcK8wlsDGAX4nKgjp-fESqALDKOuscEjKnyaON1eBQ3nUQ7FynBZPmYxRJ29y93D4siokV-Stn6a5JNr6vM01vqTS3l8RSnz0-gp6wnbvqB6lBBV0ZTpv54XHrHiQyx4Lbxo2shyaBOMoWAEO4KuV45u0MDzHOZk33779huUIp-9yIloS8H77EIHMQptDRB9hwVY8FgGbJsW"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-surface-container shadow-sm"></div>
+</div>
+<span class="font-bold text-on-surface group-hover:text-primary transition-colors">Ember</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-body-md text-on-surface">Sarah Chen</span>
+<span class="text-[11px] text-outline">s.chen@proton.me</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-2 py-1 rounded">PAI-1024-C</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="material-symbols-outlined text-outline text-[20px]">female</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">graphic_eq</span>
+<span class="text-body-md">Shimmer</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-md italic text-on-surface-variant">"Listen Ember"</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="w-12 h-6 bg-primary/20 rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-primary rounded-full translate-x-6 transition-transform"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-on-surface">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-primary">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Pet Avatar" class="w-10 h-10 rounded-lg object-cover border border-outline-variant" data-alt="A portrait of a playful Beagle with floppy ears, captured in a clean minimalist style. The dog is looking upwards, suggesting interaction with a digital interface. Soft, ethereal lighting hits the face from one side, while the other remains in a soft shadow. The background is a gradient of deep obsidian and midnight blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWFDdxNvh1DyupjOfGd6SXrlJlLvtMiIltex02MiHI0QT8CCsANobVw8LJeYyRk4NQCUCzo6wetAlE6mn5sLHRMP6e592BiDtGO4BhmIbr029KWbrQSh8jpaYqIPSDAq_0cgWxzlrgGx1GhHq8H9OZp4UfUCgnSNRW5rEuxaOu5AvxyXWAEvNUI3B5pGxgViXPhYb1Pj07QNp2O0F5JvcWjvRJF3HR9MPgweFEX3inJA0coqjB1h220rGRyfuUaDz-YBLc9o6tDnDI"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-outline-variant rounded-full border-2 border-surface-container shadow-sm"></div>
+</div>
+<span class="font-bold text-on-surface group-hover:text-primary transition-colors">Radar</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-body-md text-on-surface">Marcus Thorne</span>
+<span class="text-[11px] text-outline">m.thorne@cyber.net</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-2 py-1 rounded">PAI-4451-B</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="material-symbols-outlined text-outline text-[20px]">male</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">graphic_eq</span>
+<span class="text-body-md">Alloy</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-md italic text-on-surface-variant">"Radar Online"</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="w-12 h-6 bg-surface-variant rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-outline-variant rounded-full translate-x-0 transition-transform"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-on-surface">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-primary">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Pet Avatar" class="w-10 h-10 rounded-lg object-cover border border-outline-variant" data-alt="A portrait of a sleek black cat with piercing neon-green eyes, staring directly into the lens. The fur is obsidian black and reflects subtle blue light highlights. The composition is tight and symmetrical, creating a futuristic, sentient feel. The background is a dark, textured gray that adds a tactile, physical quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQU1X0uLpvZIqcRSetdfsQS7nq_GrWQx3_jM3jlY5mJu5iFSvYwI5V0DzKq1KvmnAsltQKuQlEJ0FOxqREnCZg4xDj2oVIlC_pfGgcWQRNDqj-1mJDxkZjH4wlNIP6TQGISbw_0-JmScYd7F1OWiXuLcTMpaK5gSwmr_I9Txw72e_dV2cRT0nQB7hb8khxGQHpgke940M0JgkYYBWwZj0FugNPtdOu9r3B4JXAy2o1AdMV4fjkmroWtB6E4iCUOTkqCNCYxCHBpYif"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-primary rounded-full border-2 border-surface-container shadow-sm"></div>
+</div>
+<span class="font-bold text-on-surface group-hover:text-primary transition-colors">Luna</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-body-md text-on-surface">Elena Vogt</span>
+<span class="text-[11px] text-outline">elena.v@tech.de</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-2 py-1 rounded">PAI-8820-L</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="material-symbols-outlined text-outline text-[20px]">female</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">graphic_eq</span>
+<span class="text-body-md">Shimmer</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-md italic text-on-surface-variant">"Luna Awake"</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<div class="w-12 h-6 bg-primary/20 rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-primary rounded-full translate-x-6 transition-transform"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-on-surface">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-outline hover:text-primary">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="p-6 border-t border-outline-variant flex justify-between items-center bg-surface-container-low">
+<p class="text-body-md text-outline">Showing <span class="text-on-surface">1-4</span> of <span class="text-on-surface">1,284</span> companions</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 py-2 bg-primary/10 text-primary font-bold rounded-lg border border-primary/20">1</button>
+<button class="px-4 py-2 hover:bg-surface-variant rounded-lg transition-colors">2</button>
+<button class="px-4 py-2 hover:bg-surface-variant rounded-lg transition-colors">3</button>
+<button class="px-4 py-2 hover:bg-surface-variant rounded-lg transition-colors">...</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Atmospheric Glows -->
+<div class="fixed bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+<div class="fixed top-20 left-1/2 w-[300px] h-[300px] bg-secondary/5 blur-[100px] rounded-full -z-10 pointer-events-none"></div>
+</main>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if(e.target.closest('button')) return;
+                console.log('Row clicked for companion details');
+            });
+        });
+
+        // Toggle simulation
+        document.querySelectorAll('.relative.p-1.cursor-pointer').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const dot = toggle.querySelector('.w-4.h-4');
+                const isActive = dot.classList.contains('translate-x-6');
+                
+                if(isActive) {
+                    dot.classList.remove('translate-x-6');
+                    dot.classList.add('translate-x-0');
+                    dot.classList.replace('bg-primary', 'bg-outline-variant');
+                    toggle.classList.replace('bg-primary/20', 'bg-surface-variant');
+                } else {
+                    dot.classList.remove('translate-x-0');
+                    dot.classList.add('translate-x-6');
+                    dot.classList.replace('bg-outline-variant', 'bg-primary');
+                    toggle.classList.replace('bg-surface-variant', 'bg-primary/20');
+                }
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.opacity = text.includes(val) ? '1' : '0.3';
+                row.style.transform = text.includes(val) ? 'scale(1)' : 'scale(0.98)';
+            });
+        });
+    </script>
+</body></html>

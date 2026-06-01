@@ -1,0 +1,2 @@
+ALTER TABLE "Pet" ADD COLUMN "imageUrl" TEXT;
+ALTER TABLE "Pet" ADD COLUMN "imageKey" TEXT;

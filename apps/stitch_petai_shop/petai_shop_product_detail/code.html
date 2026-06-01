@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>body {
+    background-color: #131313;
+    color: #e5e2e1;
+    overflow-x: hidden
+    }
+.inner-glow-top-left {
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.1)
+    }
+.glow-primary:hover {
+    box-shadow: 0 0 20px rgba(71, 214, 255, 0.3)
+    }
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05)
+    }
+.noise-overlay {
+    position: relative
+    }
+.noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAKigWrxO9OTJVVR-rYM7B1wMTnZEV3MqrkesPjqIaEX8Az4b9K1PSgyy5H7Y0dML5BDXvpcavUOQZ0kJ6hkb4WAiEuWoJ9hQ6iizCY97rb4LaCMdWAtlPQGWRm1Ub8j575HV8j16qZmDRR-9LZVG1lfUb_PVN67abzfQmR7fDisesa5f7lfpn-dEpvNe40ATCr6QT4LDmlOe0IS21VarKq9DCct16czC4S1BjHStNpG_Fj5UoovM8MKLuKbGRxkxYLRJIwiBUuhjkO);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1
+    }
+.atmospheric-glow {
+    filter: blur(100px);
+    z-index: -1
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#a5e7ff",
+                        "on-secondary-fixed-variant": "#6300bb",
+                        "inverse-on-surface": "#313030",
+                        "outline-variant": "#3c494e",
+                        "inverse-primary": "#00677f",
+                        "secondary-fixed": "#eedcff",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#c0c1c3",
+                        "secondary": "#d9b9ff",
+                        "on-surface": "#e5e2e1",
+                        "secondary-container": "#6c04ca",
+                        "on-primary-container": "#00566a",
+                        "background": "#131313",
+                        "on-secondary-container": "#d3b0ff",
+                        "primary-fixed": "#b6ebff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-dim": "#131313",
+                        "on-background": "#e5e2e1",
+                        "outline": "#859399",
+                        "surface-variant": "#353534",
+                        "on-surface-variant": "#bbc9cf",
+                        "on-primary": "#003543",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "primary-container": "#00d2ff",
+                        "on-primary-fixed": "#001f28",
+                        "on-tertiary": "#2f3132",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#d9b9ff",
+                        "inverse-surface": "#e5e2e1",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004e60",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "primary-fixed-dim": "#47d6ff",
+                        "on-secondary-fixed": "#2a0054",
+                        "surface-tint": "#47d6ff",
+                        "on-secondary": "#450086",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "on-tertiary-container": "#4d4f51",
+                        "tertiary": "#dcdddf",
+                        "surface-container-highest": "#353534",
+                        "tertiary-fixed": "#e2e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "section-gap": "160px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "section-gap-mobile": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-mono": ["Geist Mono"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-xl-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["20px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full bg-surface/30 backdrop-blur-xl border-b border-white/10 z-50 inner-glow-top-left backdrop-saturate-180">
+<div class="flex justify-between items-center px-container-padding h-20 w-full max-w-7xl mx-auto">
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter">PetAI</div>
+<nav class="hidden md:flex gap-stack-lg items-center font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Models</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Hardware</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Sensors</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-white/5 transition-all duration-300 rounded-full" data-icon="shopping_cart"></button>
+<button class="material-symbols-outlined text-primary p-2 hover:bg-white/5 transition-all duration-300 rounded-full" data-icon="account_circle"></button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-section-gap max-w-7xl mx-auto px-container-padding relative overflow-hidden">
+<!-- Background Atmospheric Glows -->
+<div class="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 atmospheric-glow rounded-full"></div>
+<div class="absolute top-1/2 -right-40 w-80 h-80 bg-on-secondary-fixed-variant/10 atmospheric-glow rounded-full"></div>
+<div class="flex flex-col lg:flex-row gap-gutter mt-stack-lg">
+<!-- Gallery Section -->
+<div class="flex-1 space-y-gutter">
+<div class="glass-card rounded-xl overflow-hidden noise-overlay">
+<img alt="PetAI Starter Kit" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVddMmihSPpar0oGgMzMn_k213RwhKi-BZhnCpXqC2f6WPEvqCTqm1qKYVeW3XRvG1CC4EFRC6OkLBBpMp41qQgXIDpX_8SY7vqzUdlk3iNBchG5B-xmzhgPuImNtX89fAugFrfIIsgTcNMWwhxW9xny0weWWW_hPz51UJ6JjZeHnCl1VvNrsCsPgPJzoCHUMQ8H24xx81w3sMsDh-Qz1MUIxJkxSVyeniIMMcmMM6k8hmHD0bTu8GnTtklO6VKIPffwOmZtaX8sxr"/>
+</div>
+<div class="grid grid-cols-4 gap-stack-md">
+<div class="aspect-square glass-card rounded-lg overflow-hidden cursor-pointer border-primary/40 ring-1 ring-primary/40">
+<img alt="Thumb 1" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVddMmihSPpar0oGgMzMn_k213RwhKi-BZhnCpXqC2f6WPEvqCTqm1qKYVeW3XRvG1CC4EFRC6OkLBBpMp41qQgXIDpX_8SY7vqzUdlk3iNBchG5B-xmzhgPuImNtX89fAugFrfIIsgTcNMWwhxW9xny0weWWW_hPz51UJ6JjZeHnCl1VvNrsCsPgPJzoCHUMQ8H24xx81w3sMsDh-Qz1MUIxJkxSVyeniIMMcmMM6k8hmHD0bTu8GnTtklO6VKIPffwOmZtaX8sxr"/>
+</div>
+<div class="aspect-square glass-card rounded-lg overflow-hidden cursor-pointer border-transparent hover:border-primary/20 transition-all">
+<img class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" data-alt="A high-tech close-up of a plush robotic pet casing with a translucent blue faceplate, showing faint interior wiring and LED glows. The environment is a futuristic dark laboratory with soft neon reflections on metallic surfaces. The photography style is professional product macro, highlighting textures and advanced composite materials in a sleek dark mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9SUCOQyRmwyzvFRINHZhqg0KVl4NfkAVSvki1fpMnxXUDzEdV_qTIcnPwjF_fDW0sZb7jPYBkpGfbywcAxuWxg2lVPzZWXtnDN0UoVKjVYF7dEAIeYJE4c4wF0mUvj3kprPg0mFmish0QtEaN3R6TmCO8E8Fpmg54m8EPOi9AgObzim5bWy5rF3dZu-n0xf7w_tHoy_1WIOl88v0ovoHRGe5naq0RjQUW7xc4PHCQEOxtE_cTk2IQ9xWQoTw6PfDef_Qx41R9Rn1h"/>
+</div>
+<div class="aspect-square glass-card rounded-lg overflow-hidden cursor-pointer border-transparent hover:border-primary/20 transition-all">
+<img class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" data-alt="A side view of a minimalist hardware box featuring a glowing PetAI logo and circuit board etchings. The packaging is premium matte black with silver metallic accents. It is positioned on a dark glass table that reflects vibrant purple and cyan ambient lights from a cybernetic city background. High-fidelity textures and professional studio lighting create a luxury tech feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAh1K9fT8XDoTFre3i1HYZRuf7wtdLzcAvNnIuHYowoO_Sk3g94V44dDH586Yx-IRvk2YGX4NPGr7YhkVFSBR9PyQsH0PFNFvMTASNvo_f5FdFZxanB7qCNKuhkJio-ilkYhJjDi5O5ryi5tGiUwDpuUtekq22EgnGrC1ohGpwfxBKXM_5cP_-8h_YdD7a-zZlEuS33nOpJlfw9zU2LHGADnc-qd25WFEsf3GIQ8eXbb3Cen7SuiPDcRdiRg74-z4eP1AROpEARttO"/>
+</div>
+<div class="aspect-square glass-card rounded-lg flex items-center justify-center cursor-pointer border-transparent hover:border-primary/20 transition-all">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="videocam"></span>
+</div>
+</div>
+</div>
+<!-- Product Details Section -->
+<div class="flex-1 space-y-stack-lg">
+<div class="space-y-stack-sm">
+<div class="flex items-center gap-stack-sm">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-mono text-label-mono flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span> IN STOCK
+                        </span>
+<span class="text-on-surface-variant font-label-mono text-label-mono">HARDWARE V2.4</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">PetAI Starter Kit</h1>
+<p class="font-display-xl text-primary font-bold tracking-tight">$299.00</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl noise-overlay space-y-stack-md">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        The ultimate emotional intelligence core. Powered by a dual-core <span class="text-primary font-medium">ESP32 AI processing module</span>, this starter kit includes the signature plush shell designed for tactile connection and neural responsiveness.
+                    </p>
+<div class="grid grid-cols-2 gap-stack-md pt-stack-md">
+<div class="flex items-start gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="mic"></span>
+<div>
+<h4 class="font-label-mono text-label-mono text-on-surface">360° MIC ARRAY</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Spatial voice capture</p>
+</div>
+</div>
+<div class="flex items-start gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="volume_up"></span>
+<div>
+<h4 class="font-label-mono text-label-mono text-on-surface">HI-FI SPEAKER</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Rich audio response</p>
+</div>
+</div>
+<div class="flex items-start gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="neurology"></span>
+<div>
+<h4 class="font-label-mono text-label-mono text-on-surface">NEURAL CORE</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">ESP32-S3 Optimized</p>
+</div>
+</div>
+<div class="flex items-start gap-stack-sm">
+<span class="material-symbols-outlined text-primary" data-icon="chat_bubble"></span>
+<div>
+<h4 class="font-label-mono text-label-mono text-on-surface">WAKE WORD</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Always-ready AI</p>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-stack-md pt-stack-md">
+<div class="flex items-center gap-stack-md">
+<div class="flex items-center glass-card rounded-full px-4 py-3 border border-white/10">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="remove" onclick="decrement()"></button>
+<span class="w-12 text-center font-label-mono text-lg text-on-surface" id="qty">1</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="add" onclick="increment()"></button>
+</div>
+<button class="flex-1 bg-surface-container-highest/50 backdrop-blur-md text-on-surface font-semibold py-4 rounded-full border border-white/10 hover:bg-white/5 transition-all duration-300 glow-primary">
+                            Add to Cart
+                        </button>
+</div>
+<button class="w-full bg-on-surface text-background font-bold py-5 rounded-full hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all transform hover:-translate-y-0.5">
+                        Buy Now
+                    </button>
+</div>
+<div class="pt-stack-lg border-t border-white/5 flex gap-stack-lg justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user"></span>
+<span class="font-label-mono text-label-mono">2-YEAR WARRANTY</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="local_shipping"></span>
+<span class="font-label-mono text-label-mono">FREE EXPRESS SHIPPING</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Specification Section -->
+<section class="mt-section-gap">
+<h2 class="font-headline-lg text-headline-lg text-center mb-stack-lg">Neural Specifications</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="glass-card p-stack-lg rounded-xl noise-overlay border-l-2 border-primary">
+<h3 class="font-label-mono text-label-mono text-primary mb-2 uppercase">Connectivity</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Dual-band Wi-Fi (2.4/5GHz), Bluetooth 5.2 Low Energy, and integrated Neural Link protocol for seamless hardware syncing.</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl noise-overlay border-l-2 border-secondary">
+<h3 class="font-label-mono text-label-mono text-secondary mb-2 uppercase">Physicality</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Ultra-soft hypoallergenic microbial-resistant fabric shell. Easy-access modular core for future sensor upgrades.</p>
+</div>
+<div class="glass-card p-stack-lg rounded-xl noise-overlay border-l-2 border-tertiary">
+<h3 class="font-label-mono text-label-mono text-tertiary mb-2 uppercase">Sustainability</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Made with 45% recycled ocean-bound plastics and conflict-free mineral circuitry components.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Checkout Drawer - Initially Hidden) -->
+<aside class="fixed right-0 top-0 h-full w-96 bg-surface-container-highest/80 backdrop-blur-2xl border-l border-outline-variant shadow-2xl z-[60] flex flex-col p-stack-lg translate-x-full transition-transform duration-500" id="sideNav">
+<div class="flex justify-between items-center mb-stack-lg">
+<h2 class="font-headline-lg-mobile text-primary">Your Neural Core</h2>
+<button class="material-symbols-outlined" data-icon="close" onclick="toggleSideNav()"></button>
+</div>
+<p class="font-label-mono text-label-mono text-on-surface-variant mb-stack-md">4 items in cart</p>
+<div class="flex-grow space-y-stack-md overflow-y-auto pr-2">
+<!-- Active Step -->
+<div class="bg-secondary-container text-on-secondary-container rounded-xl p-4 flex items-center gap-stack-md">
+<span class="material-symbols-outlined" data-icon="shopping_bag"></span>
+<div>
+<p class="font-label-mono text-label-mono font-bold">Cart Summary</p>
+<p class="text-xs opacity-80">Finalizing selections</p>
+</div>
+</div>
+<!-- Inactive Steps -->
+<div class="text-on-surface-variant p-4 hover:bg-white/5 rounded-xl flex items-center gap-stack-md transition-colors">
+<span class="material-symbols-outlined" data-icon="local_shipping"></span>
+<p class="font-label-mono text-label-mono">Shipping</p>
+</div>
+<div class="text-on-surface-variant p-4 hover:bg-white/5 rounded-xl flex items-center gap-stack-md transition-colors">
+<span class="material-symbols-outlined" data-icon="payments"></span>
+<p class="font-label-mono text-label-mono">Payment</p>
+</div>
+<div class="text-on-surface-variant p-4 hover:bg-white/5 rounded-xl flex items-center gap-stack-md transition-colors">
+<span class="material-symbols-outlined" data-icon="fact_check"></span>
+<p class="font-label-mono text-label-mono">Review</p>
+</div>
+</div>
+<div class="mt-auto pt-stack-lg border-t border-white/10 space-y-stack-md">
+<div class="flex justify-between text-on-surface">
+<span>Subtotal</span>
+<span class="font-bold">$299.00</span>
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-bold glow-primary transition-all">
+                Checkout Now
+            </button>
+</div>
+</aside>
+<!-- Footer -->
+<footer class="w-full py-section-gap-mobile bg-background border-t border-outline-variant mt-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center px-container-padding max-w-7xl mx-auto gap-stack-lg">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary">PetAI</div>
+<div class="flex gap-stack-md font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">AI Ethics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Global Support</a>
+</div>
+<div class="text-on-surface-variant font-body-md text-body-md opacity-80">
+                © 2024 PetAI Neural Systems. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        let quantity = 1;
+        const qtyDisplay = document.getElementById('qty');
+
+        function increment() {
+            quantity++;
+            qtyDisplay.innerText = quantity;
+        }
+
+        function decrement() {
+            if (quantity > 1) {
+                quantity--;
+                qtyDisplay.innerText = quantity;
+            }
+        }
+
+        function toggleSideNav() {
+            const nav = document.getElementById('sideNav');
+            nav.classList.toggle('translate-x-full');
+        }
+
+        // Interaction for shopping cart
+        document.querySelector('[data-icon="shopping_cart"]').addEventListener('click', toggleSideNav);
+
+        // Simple mouse tracking for atmospheric glow
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Subtle movement of glows
+            const glows = document.querySelectorAll('.atmospheric-glow');
+            glows.forEach((glow, index) => {
+                const shift = (index + 1) * 20;
+                glow.style.transform = `translate(${x * shift}px, ${y * shift}px)`;
+            });
+        });
+    </script>
+</body></html>

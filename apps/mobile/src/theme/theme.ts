@@ -1,0 +1,85 @@
+export const theme = {
+  colors: {
+    background: "#131313",
+    surface: "#131313",
+    surfaceContainerLowest: "#0e0e0e",
+    surfaceContainerLow: "#1c1b1b",
+    surfaceContainer: "#201f1f",
+    surfaceContainerHigh: "#2a2a2a",
+    surfaceContainerHighest: "#353534",
+    onSurface: "#e5e2e1",
+    onSurfaceVariant: "#bbc9cf",
+    primary: "#a5e7ff",
+    primaryContainer: "#00d2ff",
+    secondary: "#d9b9ff",
+    secondaryContainer: "#6c04ca",
+    tertiary: "#dcdddf",
+    outline: "#859399",
+    outlineVariant: "#3c494e",
+    error: "#ffb4ab",
+    success: "#7df1ba",
+    black: "#050505",
+    white: "#ffffff",
+  },
+  spacing: {
+    xs: 8,
+    sm: 12,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  radii: {
+    sm: 8,
+    md: 14,
+    lg: 24,
+    xl: 32,
+    full: 999,
+  },
+  typography: {
+    display: {
+      fontSize: 40,
+      lineHeight: 46,
+      fontWeight: "700" as const,
+      letterSpacing: -1,
+    },
+    headline: {
+      fontSize: 30,
+      lineHeight: 36,
+      fontWeight: "700" as const,
+      letterSpacing: -0.6,
+    },
+    title: {
+      fontSize: 22,
+      lineHeight: 28,
+      fontWeight: "600" as const,
+    },
+    body: {
+      fontSize: 16,
+      lineHeight: 24,
+      fontWeight: "400" as const,
+    },
+    bodySmall: {
+      fontSize: 14,
+      lineHeight: 20,
+      fontWeight: "400" as const,
+    },
+    mono: {
+      fontSize: 11,
+      lineHeight: 14,
+      fontWeight: "600" as const,
+      letterSpacing: 2,
+    },
+  },
+  shadow: {
+    glow: {
+      shadowColor: "#a5e7ff",
+      shadowOpacity: 0.2,
+      shadowRadius: 24,
+      shadowOffset: { width: 0, height: 12 },
+      elevation: 8,
+    },
+  },
+};
+
+export type AppTheme = typeof theme;
